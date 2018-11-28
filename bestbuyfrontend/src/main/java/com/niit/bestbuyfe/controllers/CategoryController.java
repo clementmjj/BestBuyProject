@@ -1,7 +1,6 @@
-package com.niit.bestbuyfrontend.contollers;
+package com.niit.bestbuyfe.controllers;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,21 +18,28 @@ public class CategoryController
 	@Autowired
 	CategoryDAO categoryDAO;
 	
-	@RequestMapping(value="/addCategory", method=RequestMethod.POST)
-	public String addCategory(@RequestParam("categoryName") String categoryName, @RequestParam("categoryDesc") String categoryDesc)
+	@RequestMapping(value="/category")
+	public String showCategory(Model m)
+	{
+		List<Category> listCategories=categoryDAO.listCategories();
+		//binding the listCategories and sending to jsp page
+		m.addAttribute("listCategories", listCategories); 
+		return "Category";
+	}
+	
+	@RequestMapping(value="/addCategory",method=RequestMethod.POST)
+	public String addCategoryDetail(@RequestParam("categoryName")String categoryName,@RequestParam("categoryDesc")String categoryDesc,Model m)
 	{
 		Category category=new Category();
 		category.setCategoryName(categoryName);
 		category.setCategoryDesc(categoryDesc);
+			
 		categoryDAO.add(category);
-		return "Category";
-	}
-	
-	@RequestMapping(value="/category")
-	public String showCategory(Model m)
-	{
-		List<Category> categoryList=categoryDAO.listCategories();
-		m.addAttribute("categoryList", categoryList); 
+		
+		List<Category> listCategories=categoryDAO.listCategories();
+		//binding the listCategories and sending to jsp page
+		m.addAttribute("listCategories", listCategories); 
+		
 		return "Category";
 	}
 	
@@ -42,8 +48,9 @@ public class CategoryController
 	{
 		Category category=categoryDAO.getCategory(categoryId);
 		categoryDAO.delete(category);
-		List<Category> categoryList=categoryDAO.listCategories();
-		m.addAttribute("categoryList", categoryList); 
+		
+		List<Category> listCategories=categoryDAO.listCategories();
+		m.addAttribute("listCategories", listCategories); 
 		return "Category";
 	}
 	
@@ -65,9 +72,8 @@ public class CategoryController
 		
 		categoryDAO.update(category);
 		
-		List<Category> categoryList=categoryDAO.listCategories();
-		//binding the categoryList and sending to jsp page
-		m.addAttribute("categoryList", categoryList); 
+		List<Category> listCategories=categoryDAO.listCategories();
+		m.addAttribute("listCategories", listCategories); 
 		return "Category";
 	}
 }

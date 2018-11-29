@@ -3,7 +3,10 @@
 <head>
 <title>Register</title>
 </head>
-<body>
-<h3>Register</h3>
+	<body>
+		<div class="section">
+			<h3>Register page</h3>
+		</div>
 </body>
 </html>
+<%@include file="Header.jsp" %>

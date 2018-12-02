@@ -1,9 +1,8 @@
 <%@include file="Header.jsp" %>
-<!-- <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> -->
 <html>
 	<body>
 		<div class="section">
-			<h3>Update Category Page</h3>
+			<h3>Update Category</h3>
 		
 			<form action="<c:url value="/updateCategory"/>" method="post">
 			

@@ -64,7 +64,7 @@ public class ProductDAOImpl implements ProductDAO
 	public List<Product> listProducts() 
 	{
 		Session session=sessionFactory.openSession();
-		Query query=session.createQuery("from Produt");
+		Query query=session.createQuery("from Product");
 		List<Product> productList=query.list();
 		session.close();
 		return productList;

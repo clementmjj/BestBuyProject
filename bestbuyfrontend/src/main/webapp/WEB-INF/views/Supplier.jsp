@@ -1,11 +1,42 @@
 <%@include file="Header.jsp" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
 	<body>
 		<div class="section">
-			<h3>Supplier page</h3>
+			<h3>Add Supplier</h3>
+			<form:form action="addSupplier" modelAttribute="addSupplier">
+				<table>
+					<tr>
+						<td>Supplier Name</td>
+						<td><form:input path="supplierName"/></td>
+					</tr>
+					<tr>
+						<td>Supplier Address</td>
+						<td><form:textarea path="supplierAddress"/></td>
+					</tr>
+					<tr>
+						<td><input type="submit" value="Add Supplier"/></td>
+					</tr>
+				</table>
+			</form:form>
+			<h3>Existing Suppliers</h3>
+			<table>
+				<tr>
+					<td>Supplier Id</td>
+					<td>Supplier Name</td>
+					<td>Supplier Address</td>
+					<td>Operations</td>
+				</tr>
+				<c:forEach items="${supplierList}" var="supplier">
+				<tr>
+					<td>${supplier.supplierId}</td>
+					<td>${supplier.supplierName}</td>
+					<td>${supplier.supplierAddress}</td>
+					<td><a href="editSupplier/${supplier.supplierId}">Edit</a> | <a href="deleteSupplier/${supplier.supplierId}">Delete</a></td>
+				</tr>
+				</c:forEach>
+			</table>
 		</div>
 	</body>
 </html>
-<%@include file="Header.jsp" %>
+<%@include file="Footer.jsp" %>

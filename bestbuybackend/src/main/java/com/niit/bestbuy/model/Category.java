@@ -11,9 +11,9 @@ public class Category
 {
 	@Id
 	@GeneratedValue
-	int categoryId;
-	String categoryName;
-	String categoryDesc;
+	private int categoryId;
+	private String categoryName;
+	private String categoryDesc;
 	public int getCategoryId() {
 		return categoryId;
 	}

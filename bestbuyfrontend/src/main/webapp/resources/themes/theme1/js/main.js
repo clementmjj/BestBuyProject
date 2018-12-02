@@ -10,12 +10,13 @@
 
   catToggle.on('click', function() {
     menuList.removeClass('open');
-    catList.toggleClass('open');
+    catList.toggleClass('open');    
   });
 
   menuToggle.on('click', function() {
     catList.removeClass('open');
     menuList.toggleClass('open');
+    document.getElementById("demo").innerHTML = "Paragraph changed!";
   });
 
   $(document).click(function(event) {

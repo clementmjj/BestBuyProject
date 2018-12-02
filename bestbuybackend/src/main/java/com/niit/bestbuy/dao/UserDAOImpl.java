@@ -1,5 +1,8 @@
 package com.niit.bestbuy.dao;
 
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +54,16 @@ public class UserDAOImpl implements UserDAO
 		User user=session.get(User.class, userName);
 		session.close();
 		return user;
+	}
+
+	@Override
+	public List<User> listUsers() 
+	{
+		Session session=sessionFactory.openSession();
+		Query query=session.createQuery("from User");
+		List<User> userList=query.list();
+		session.close();
+		return userList;
 	}
 	
 }

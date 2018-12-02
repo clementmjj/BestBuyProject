@@ -1,5 +1,4 @@
 <%@include file="Header.jsp" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 	<body>
 		<div class="section">
@@ -28,7 +27,7 @@
 				<td>Category Desc</td>
 				<td>Operations</td>
 			</tr>
-			<c:forEach items="${listCategories}" var="category">
+			<c:forEach items="${categoryList}" var="category">
 			<tr>
 				<td>${category.categoryId}</td>
 				<td>${category.categoryName}</td>

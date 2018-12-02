@@ -3,6 +3,7 @@
 	
 </head>
 <body>
+	
 	<footer id="footer" class="section section-grey">
 		<!-- container -->
 		<div class="container">
@@ -94,5 +95,6 @@
 		</div>
 		<!-- /container -->
 	</footer>
+	
 </body>
 </html>

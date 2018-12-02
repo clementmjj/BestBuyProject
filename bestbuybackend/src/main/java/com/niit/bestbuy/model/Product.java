@@ -13,7 +13,7 @@ public class Product
 	@GeneratedValue
 	private int productId;
 	private int supplierId, categoryId, stock;
-	private int price;
+	private double price;
 	private String productName, productDesc;
 	
 	public int getProductId() {
@@ -43,7 +43,7 @@ public class Product
 	public double getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 	public String getProductName() {

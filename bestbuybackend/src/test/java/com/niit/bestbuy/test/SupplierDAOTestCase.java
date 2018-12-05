@@ -31,15 +31,17 @@ public class SupplierDAOTestCase
 	public void addSupplierTest()
 	{
 		Supplier supplier=new Supplier();
-		supplier.setSupplierName("XYZ");
-		supplier.setSupplierAddress("Bangalore");
+		supplier.setSupplierName("ddd");
+		supplier.setSupplierAddress("ssssss");
 		assertTrue("Problem adding supplier",supplierDAO.add(supplier));
+		assertTrue("Problem deleting supplier",supplierDAO.delete(supplier));
 	}
+	
 	@Ignore
 	@Test
 	public void deleteSupplierTest()
 	{
-		Supplier supplier=supplierDAO.getSupplier(7);
+		Supplier supplier=supplierDAO.getSupplier(140);
 		assertTrue("Problem deleting supplier",supplierDAO.delete(supplier));
 	}
 	
@@ -47,11 +49,12 @@ public class SupplierDAOTestCase
 	@Test
 	public void updateSupplierTest()
 	{
-		Supplier supplier=supplierDAO.getSupplier(6);
-		supplier.setSupplierAddress("Kolkota");
+		Supplier supplier=supplierDAO.getSupplier(140);
+		supplier.setSupplierAddress("Delhi");
 		assertTrue("Problem updating supplier",supplierDAO.update(supplier));
 	}
 	
+	@Ignore
 	@Test
 	public void listSuppliersTest()
 	{

@@ -1,21 +1,26 @@
 package com.niit.bestbuyfe.controllers;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.niit.bestbuy.dao.CategoryDAO;
+import com.niit.bestbuy.model.Category;
 
 @Controller
 public class PageController 
-{
-	@RequestMapping(value="/login")
-	public String showLogin()
-	{
-		return "Login";
-	}
+{	
+	@Autowired
+	CategoryDAO categoryDAO;
 	
-	@RequestMapping(value="/register")
-	public String showRegister()
-	{
-		return "Register";
+	@ModelAttribute("categoryList")
+	public List<Category> getCategoryList()
+	{			
+		List<Category> categoryList=categoryDAO.listCategories();
+		return categoryList;
 	}
 	
 	@RequestMapping(value="/aboutus")
@@ -30,21 +35,4 @@ public class PageController
 		return "test";
 	}
 	
-	@RequestMapping(value="/product")
-	public String showProduct()
-	{
-		return "Product";
-	}
-	
-	@RequestMapping(value="/supplier")
-	public String showSupplier()
-	{
-		return "Supplier";
-	}
-	
-	@RequestMapping(value="/home")
-	public String showHome()
-	{
-		return "index";
-	}
 }

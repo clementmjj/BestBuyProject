@@ -12,6 +12,7 @@ public class User
 	private String userName;
 	private String password, userFullName, userAddress, role, email, mobileNo;
 	private boolean enabled;
+	
 	public String getuserName() {
 		return userName;
 	}

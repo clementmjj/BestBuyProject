@@ -26,13 +26,12 @@ public class CategoryDAOTestCase
 		categoryDAO=(CategoryDAO)context.getBean("categoryDAO");
 	}
 	
-	@Ignore
 	@Test
 	public void addCategoryTest()
 	{
 		Category category=new Category();
-		category.setCategoryName("Landline Phones");
-		category.setCategoryDesc("Landline Phones");
+		category.setCategoryName("Skipping Rope");
+		category.setCategoryDesc("Skipping Ropes");
 		assertTrue("Problem adding category",categoryDAO.add(category));
 	}
 	
@@ -43,6 +42,7 @@ public class CategoryDAOTestCase
 		Category category=categoryDAO.getCategory(2);
 		assertTrue("Problem deleting category DAO",categoryDAO.delete(category));
 	}
+	
 	@Ignore
 	@Test
 	public void updateCategoryTest()
@@ -66,6 +66,7 @@ public class CategoryDAOTestCase
 		}
 	}
 	
+	@Ignore
 	@Test
 	public void getCategoryTest()
 	{

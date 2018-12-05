@@ -1,0 +1,11 @@
+.header-btns>li .header-btns-icon {
+	display: flex;
+}
+
+.fa{
+	margin: auto;
+}
+
+.slick-slide {
+	height: auto;
+}

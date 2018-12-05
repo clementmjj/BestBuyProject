@@ -24,10 +24,12 @@ public class UserDAOTestCase
 		userDAO=(UserDAO)context.getBean("userDAO");
 	}
 	
+	@Ignore
 	@Test
 	public void registerUserTest()
 	{
 		User user=new User();
+		user.setUserName("clement");
 		user.setUserFullName("Clement S");
 		user.setPassword("abc123");
 		user.setEmail("clement@gmail.com");
@@ -39,9 +41,10 @@ public class UserDAOTestCase
 	}
 	
 	
+	@Test
 	public void updateUserTest()
 	{
-		User user=userDAO.getUser("10");
+		User user=userDAO.getUser("clement");
 		user.setUserAddress("Kerala");
 		assertTrue("Problem updating user",userDAO.updateUser(user));
 	}

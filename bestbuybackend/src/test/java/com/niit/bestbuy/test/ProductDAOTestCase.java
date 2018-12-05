@@ -24,18 +24,20 @@ public class ProductDAOTestCase
 		productDAO=(ProductDAO)context.getBean("productDAO");
 	}
 	
+	@Test
 	public void addProductTest()
 	{
 		Product product=new Product();
-		product.setCategoryId(1);
-		product.setProductName("Round Clay flowerpot");
-		product.setProductDesc("Black clay flower pot shape: round");
+		product.setCategoryId(3);
+		product.setProductName("dddd");
+		product.setProductDesc("ffffffffff");
 		product.setPrice(200);
 		product.setStock(10);
 		product.setSupplierId(1);
 		assertTrue("Problem adding product",productDAO.add(product));
 	}
 	
+	@Ignore
 	@Test
 	public void deleteProductTest()
 	{
@@ -43,7 +45,8 @@ public class ProductDAOTestCase
 		assertTrue("Problem deleting product",productDAO.delete(product));
 	}
 	
-	
+	@Ignore
+	@Test
 	public void updateProductTest()
 	{
 		Product product=productDAO.getProduct(1);
@@ -51,7 +54,8 @@ public class ProductDAOTestCase
 		assertTrue("Problem updating product",productDAO.update(product));
 	}
 	
-	
+	@Ignore
+	@Test
 	public void listProductsTest()
 	{
 		List<Product> productList=productDAO.listProducts();

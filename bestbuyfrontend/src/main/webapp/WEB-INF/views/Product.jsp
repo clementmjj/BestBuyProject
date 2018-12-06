@@ -6,7 +6,7 @@
 	<body>
 		<div class="section">
 			<h3>Add Product</h3>
-			<form:form action="addProduct" modelAttribute="addProduct">
+			<form:form action="addProduct" modelAttribute="addProduct" enctype="multipart/form-data" method="post">
 				<table>
 					<tr>
 						<td>Product Name</td>
@@ -44,6 +44,10 @@
 						<td><form:input path="stock"/></td>
 					</tr>
 					<tr>
+						<td>Select Image</td>
+						<td><form:input type="file" path="image"/></td>
+					</tr>
+					<tr>
 						<td><input type="submit" value="Add Product"/></td>
 					</tr>
 				</table>
@@ -63,7 +67,7 @@
 				<c:forEach items="${productList}" var="product">
 				<tr>
 					<td>${product.productId}</td>
-					<td>${product.productName}</td>
+					<td><a href="<c:url value="/productDisplay/${product.productId}"/>">${product.productName}</a></td>
 					<td>${product.productDesc}</td>
 					<td>${product.supplierId}</td>
 					<td>${product.categoryId}</td>

@@ -28,9 +28,9 @@ public class ProductDAOTestCase
 	public void addProductTest()
 	{
 		Product product=new Product();
-		product.setCategoryId(1);
-		product.setProductName("Round Clay flowerpot");
-		product.setProductDesc("Black clay flower pot shape: round");
+		product.setCategoryId(3);
+		product.setProductName("dddd");
+		product.setProductDesc("ffffffffff");
 		product.setPrice(200);
 		product.setStock(10);
 		product.setSupplierId(1);

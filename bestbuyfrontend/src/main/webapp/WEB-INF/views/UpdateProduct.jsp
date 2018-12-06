@@ -22,11 +22,11 @@
 				</tr>
 				<tr>
 					<td>Supplier Id</td>
-					<td><form:input path="supplierId" value="${supplierId}"/></td>
+					<td><form:input path="supplierId" value="${supplierId}" readonly="true"/></td>
 				</tr>
 				<tr>
 					<td>Category Id</td>
-					<td><form:input path="categoryId" value="${categoryId}"/></td>
+					<td><form:input path="categoryId" value="${categoryId}" readonly="true"/></td>
 				</tr>
 				<tr>
 					<td>Price</td>

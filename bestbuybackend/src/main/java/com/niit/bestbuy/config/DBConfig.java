@@ -1,6 +1,7 @@
 package com.niit.bestbuy.config;
 
 import java.util.Properties;
+
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
@@ -12,6 +13,7 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.niit.bestbuy.model.Cart;
 import com.niit.bestbuy.model.Category;
 import com.niit.bestbuy.model.Product;
 import com.niit.bestbuy.model.Supplier;
@@ -47,6 +49,7 @@ public class DBConfig
 		factory.addAnnotatedClass(Product.class);
 		factory.addAnnotatedClass(Supplier.class);
 		factory.addAnnotatedClass(User.class);
+		factory.addAnnotatedClass(Cart.class);
 		
 		System.out.println("Session Factory created");
 		return factory.buildSessionFactory();

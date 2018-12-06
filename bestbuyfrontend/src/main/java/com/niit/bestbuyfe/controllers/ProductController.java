@@ -1,9 +1,16 @@
 package com.niit.bestbuyfe.controllers;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.niit.bestbuy.dao.CategoryDAO;
 import com.niit.bestbuy.dao.ProductDAO;
@@ -40,6 +48,14 @@ public class ProductController
 		m.addAttribute("productList",productList);
 		m.addAttribute("addProduct",new Product());
 		return "Product";
+	}
+	
+	@RequestMapping(value="/productDisplay/{productId}")
+	public String showFullProduct(@PathVariable("productId")int productId,Model m)
+	{
+		Product product=productDAO.getProduct(productId);
+		m.addAttribute("product",product);
+		return "ProductDisplay";
 	}
 	
 	@ModelAttribute("productList")
@@ -76,11 +92,38 @@ public class ProductController
 		return supplierListMap;
 	}
 	
+	public String getImagesDir(HttpServletRequest request) throws UnsupportedEncodingException
+	{
+		String workingDir=null, projectName=null;
+		workingDir=URLDecoder.decode(this.getClass().getClassLoader().getResource("").getPath(), "UTF-8");
+		workingDir=workingDir.substring(1,workingDir.indexOf(".metadata")).replace('/', '\\');
+		projectName=request.getContextPath().substring(1)+"\\";
+		
+		return workingDir+projectName+"src\\main\\webapp\\resources\\images\\";
+	}
+	
 	
 	@RequestMapping(value="/addProduct", method=RequestMethod.POST)
-	public String addProduct(@ModelAttribute("addProduct") Product product, Model m)
+	public String addProduct(@ModelAttribute("addProduct") Product product, Model m, HttpServletRequest request)
 	{
 		productDAO.add(product);
+		MultipartFile file=product.getImage();
+		String fileExt=file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+		try 
+		{
+			if(!file.isEmpty())
+			{
+				byte[] bytes=file.getBytes();
+				Path path=Paths.get(getImagesDir(request)+product.getProductId()+fileExt);
+				Files.write(path, bytes);
+				System.out.println("file uploaded");
+			}
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		
+		
 		List<Product> productList=productDAO.listProducts();
 		m.addAttribute("productList",productList);
 		m.addAttribute("addProduct",new Product());

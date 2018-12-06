@@ -28,7 +28,6 @@
 	
 </head>
 <body>
-	<p id="demo">demo</p>
 	<header>
 		<div id="header">
 			<div class="container">
@@ -111,7 +110,7 @@
 									<div class="shopping-cart-list">
 										<div class="product product-widget">
 											<div class="product-thumb">
-												<img src="product image link" alt="">
+												<img src="" alt="">
 											</div>
 											<div class="product-body">
 												<h3 class="product-price">$32.50 <span class="qty">x3</span></h3>

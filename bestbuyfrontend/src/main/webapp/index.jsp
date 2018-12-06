@@ -1,7 +1,6 @@
 <%@include file="WEB-INF/views/Header.jsp" %>
 <html>
 <body>
-	<%@include file="WEB-INF/views/Carousel.jsp" %>
 	<div class="section">
 	</div>
 </body>

@@ -50,6 +50,14 @@ public class ProductController
 		return "Product";
 	}
 	
+	@RequestMapping(value="/productDisplay/{productId}")
+	public String showFullProduct(@PathVariable("productId")int productId,Model m)
+	{
+		Product product=productDAO.getProduct(productId);
+		m.addAttribute("product",product);
+		return "ProductDisplay";
+	}
+	
 	@ModelAttribute("productList")
 	public List<Product> getProductList()
 	{
@@ -88,23 +96,23 @@ public class ProductController
 	@RequestMapping(value="/addProduct", method=RequestMethod.POST)
 	public String addProduct(@ModelAttribute("addProduct") Product product, Model m, HttpServletRequest request)
 	{
+		productDAO.add(product);
 		MultipartFile file=product.getImage();
-		System.out.println("in add prod");
-		try {
-			byte[] bytes=file.getBytes();
-			WebApplicationContext wContext=(WebApplicationContext)getContext();
-			//String root=request.getServletContext().getContextPath();
-			System.out.println("root = "+root);
-			Path path=Paths.get(root+"\\WEB-INF\\images\\"+product.getProductId()+".jpg");
-			System.out.println(path);
-			Files.write(path, bytes);
-			System.out.println("file uploaded");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("file uploaded error");
+		try 
+		{
+			if(!file.isEmpty())
+			{
+				byte[] bytes=file.getBytes();
+				Path path=Paths.get("D:\\S191113400168 project\\bestbuyfrontend\\src\\main\\webapp\\resources\\images\\"+product.getProductId()+".jpg");
+				Files.write(path, bytes);
+				System.out.println("file uploaded");
+			}
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
 		}
 		
-		productDAO.add(product);
+		
 		List<Product> productList=productDAO.listProducts();
 		m.addAttribute("productList",productList);
 		m.addAttribute("addProduct",new Product());

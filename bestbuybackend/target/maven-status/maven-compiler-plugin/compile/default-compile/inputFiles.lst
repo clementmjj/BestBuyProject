@@ -2,8 +2,11 @@ D:\S191113400168 project\bestbuybackend\src\main\java\com\niit\bestbuy\dao\UserD
 D:\S191113400168 project\bestbuybackend\src\main\java\com\niit\bestbuy\model\Supplier.java
 D:\S191113400168 project\bestbuybackend\src\main\java\com\niit\bestbuy\model\User.java
 D:\S191113400168 project\bestbuybackend\src\main\java\com\niit\bestbuy\model\Category.java
+D:\S191113400168 project\bestbuybackend\src\main\java\com\niit\bestbuy\dao\CartDAOImpl.java
+D:\S191113400168 project\bestbuybackend\src\main\java\com\niit\bestbuy\model\Cart.java
 D:\S191113400168 project\bestbuybackend\src\main\java\com\niit\bestbuy\model\Product.java
 D:\S191113400168 project\bestbuybackend\src\main\java\com\niit\bestbuy\dao\UserDAO.java
+D:\S191113400168 project\bestbuybackend\src\main\java\com\niit\bestbuy\dao\CartDAO.java
 D:\S191113400168 project\bestbuybackend\src\main\java\com\niit\bestbuy\dao\CategoryDAO.java
 D:\S191113400168 project\bestbuybackend\src\main\java\com\niit\bestbuy\config\DBConfig.java
 D:\S191113400168 project\bestbuybackend\src\main\java\com\niit\bestbuy\dao\ProductDAOImpl.java

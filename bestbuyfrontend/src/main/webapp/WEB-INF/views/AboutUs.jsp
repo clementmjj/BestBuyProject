@@ -4,7 +4,7 @@
 <title>About Us</title>
 </head>
 	<body>
-		<div class="section">
+		<div id="body-container">
 			<h3>About us page</h3>
 		</div>
 </body>

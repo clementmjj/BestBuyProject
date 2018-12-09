@@ -10,13 +10,12 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.niit.bestbuy.dao.CartDAO;
-import com.niit.bestbuy.model.Cart;
-import com.niit.bestbuy.model.Category;
+import com.niit.bestbuy.dao.CartItemDAO;
+import com.niit.bestbuy.model.CartItem;
 
-public class CartDAOTestCase 
+public class CartItemDAOTestCase 
 {
-	static CartDAO cartDAO;
+	static CartItemDAO cartDAO;
 	
 	@BeforeClass
 	public static void executeFirst()
@@ -24,13 +23,13 @@ public class CartDAOTestCase
 		AnnotationConfigApplicationContext context=new AnnotationConfigApplicationContext();
 		context.scan("com.niit");
 		context.refresh();
-		cartDAO=(CartDAO)context.getBean("cartDAO");
+		cartDAO=(CartItemDAO)context.getBean("cartDAO");
 	}
 	
 	@Test
 	public void addCartItemTest()
 	{
-		Cart cart=new Cart();
+		CartItem cart=new CartItem();
 		cart.setProductId(99);
 		cart.setProductName("curtain");
 		cart.setPrice(300);
@@ -43,7 +42,7 @@ public class CartDAOTestCase
 	@Test
 	public void deleteCartItemTest()
 	{
-		Cart cart=cartDAO.getCartItem(197);
+		CartItem cart=cartDAO.getCartItem(197);
 		assertTrue("Problem deleting cart item",cartDAO.deleteFromCart(cart));
 	}
 	
@@ -51,21 +50,21 @@ public class CartDAOTestCase
 	@Test
 	public void updateCategoryTest()
 	{
-		Cart cart=cartDAO.getCartItem(199);
+		CartItem cart=cartDAO.getCartItem(199);
 		cart.setPrice(666);
-		assertTrue("Problem updating cart",cartDAO.updateCateItem(cart));
+		assertTrue("Problem updating cart",cartDAO.updateCartItem(cart));
 	}
 	
 	@Ignore
 	@Test
 	public void listCartTest()
 	{
-		List<Cart> cartList=cartDAO.listCartItems("sunil");
+		List<CartItem> cartList=cartDAO.listCartItems("sunil");
 		assertTrue("Problem in listing cart items",cartList.size()>0);
 		
-		for(Cart c : cartList)
+		for(CartItem c : cartList)
 		{
-			System.out.print("Cart Id: "+c.getCartId()+"\t");
+			System.out.print("Cart Id: "+c.getCartItemId()+"\t");
 			System.out.print("Cart price: "+c.getPrice()+"\t");
 			System.out.print("Cart productId: "+c.getProductId()+"\n\n");
 		}
@@ -75,7 +74,7 @@ public class CartDAOTestCase
 	@Test
 	public void getCartItemTest()
 	{
-		Cart cart=cartDAO.getCartItem(201);
+		CartItem cart=cartDAO.getCartItem(201);
 		assertEquals("curtain",cart.getProductName());
 	}
 }

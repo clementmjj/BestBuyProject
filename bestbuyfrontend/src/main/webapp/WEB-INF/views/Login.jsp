@@ -2,7 +2,7 @@
 
 <html>
 	<body>
-		<div class="section">
+		<div id="body-container">
 			<h3>Login</h3>
 			<form:form action="loginUser" modelAttribute="login">
 				<table>

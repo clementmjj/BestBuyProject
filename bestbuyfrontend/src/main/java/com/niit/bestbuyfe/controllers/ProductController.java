@@ -1,16 +1,20 @@
 package com.niit.bestbuyfe.controllers;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,9 +55,18 @@ public class ProductController
 	}
 	
 	@RequestMapping(value="/productDisplay/{productId}")
-	public String showFullProduct(@PathVariable("productId")int productId,Model m)
+	public String showFullProduct(@PathVariable("productId")int productId,Model m, HttpServletRequest request) throws UnsupportedEncodingException
 	{
-		Product product=productDAO.getProduct(productId);
+		Product product=productDAO.getProduct(productId);		
+		
+		//set product image extension
+		File productImage=getProductImage(productId, request);
+		try {
+			product.setImageExt(productImage.getName().substring(productImage.getName().lastIndexOf(".")));
+		} catch (Exception e) {
+			System.out.println("Product "+product.getProductId()+": No image found");
+		}
+		
 		m.addAttribute("product",product);
 		return "ProductDisplay";
 	}
@@ -98,8 +111,7 @@ public class ProductController
 		workingDir=URLDecoder.decode(this.getClass().getClassLoader().getResource("").getPath(), "UTF-8");
 		workingDir=workingDir.substring(1,workingDir.indexOf(".metadata")).replace('/', '\\');
 		projectName=request.getContextPath().substring(1)+"\\";
-		
-		return workingDir+projectName+"src\\main\\webapp\\resources\\images\\";
+		return workingDir+projectName+"src\\main\\webapp\\resources\\images\\ProductImages\\";
 	}
 	
 	
@@ -108,21 +120,21 @@ public class ProductController
 	{
 		productDAO.add(product);
 		MultipartFile file=product.getImage();
-		String fileExt=file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-		try 
+		if(!file.isEmpty())
 		{
-			if(!file.isEmpty())
+			String fileExt=file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+			try
 			{
 				byte[] bytes=file.getBytes();
 				Path path=Paths.get(getImagesDir(request)+product.getProductId()+fileExt);
 				Files.write(path, bytes);
 				System.out.println("file uploaded");
+			} 
+			catch (Exception e)
+			{
+				e.printStackTrace();
 			}
-		} catch (Exception e) 
-		{
-			e.printStackTrace();
 		}
-		
 		
 		List<Product> productList=productDAO.listProducts();
 		m.addAttribute("productList",productList);
@@ -131,10 +143,22 @@ public class ProductController
 	}
 	
 	@RequestMapping(value="/deleteProduct/{productId}")
-	public String deleteProduct(@PathVariable("productId") int productId, Model m)
+	public String deleteProduct(@PathVariable("productId") int productId, Model m, HttpServletRequest request) throws UnsupportedEncodingException
 	{
 		Product product=productDAO.getProduct(productId);
 		productDAO.delete(product);
+		
+		//delete image
+		File productImage=getProductImage(productId, request);
+		try {
+			productImage.delete();
+		} catch (NullPointerException e) {
+			System.out.println("Product "+productId+": Could not delete image as image was not found.");
+		}
+			catch (Exception e) {
+				System.out.println("Product "+productId+": Could not delete image.");
+		}
+		
 		List<Product> productList=productDAO.listProducts();
 		m.addAttribute("productList",productList);
 		m.addAttribute("addProduct",new Product());
@@ -157,5 +181,44 @@ public class ProductController
 		m.addAttribute("productList",productList);
 		m.addAttribute("addProduct", new Product());
 		return "Product";
+	}
+	
+	@RequestMapping(value="/allproducts")
+	public String showAllProducts(Model m, HttpServletRequest request) throws UnsupportedEncodingException
+	{
+		List<Product> productList=productDAO.listProducts();
+		
+		//set products' image extension
+		for(Product product : productList)
+		{
+			File productImage=getProductImage(product.getProductId(), request);
+			try {
+				product.setImageExt(productImage.getName().substring(productImage.getName().lastIndexOf(".")));
+			} catch (Exception e) {
+				System.out.println("Product "+product.getProductId()+": No image found");
+			}
+		}
+		m.addAttribute("productList", productList);
+		return "AllProducts";
+	}
+	
+	public File getProductImage(int productId, HttpServletRequest request) throws UnsupportedEncodingException
+	{
+		File productImage = null;
+		File imgDir=new File(getImagesDir(request));
+		for(File f : imgDir.listFiles())
+		{
+			if(f.isFile())
+			{
+				System.out.println("filename: "+f.getName());
+				String fileName=f.getName().substring(0, f.getName().lastIndexOf("."));
+				if(fileName.equals(Integer.toString(productId)))
+				{
+					productImage = f;
+					break;
+				}
+			}
+		}
+		return productImage;
 	}
 }

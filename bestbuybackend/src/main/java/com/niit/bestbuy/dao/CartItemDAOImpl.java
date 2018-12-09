@@ -9,21 +9,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.niit.bestbuy.model.Cart;
+import com.niit.bestbuy.model.CartItem;
 
 @Repository("cartDAO")
 @Transactional
-public class CartDAOImpl implements CartDAO 
+public class CartItemDAOImpl implements CartItemDAO 
 {
 	@Autowired
 	SessionFactory sessionFactory;
 	
 	@Override
-	public boolean addToCart(Cart cart) 
+	public boolean addToCart(CartItem cartItem) 
 	{
 		try
 		{
-			sessionFactory.getCurrentSession().save(cart);
+			sessionFactory.getCurrentSession().save(cartItem);
 			return true;
 		}
 		catch(Exception e)
@@ -33,11 +33,11 @@ public class CartDAOImpl implements CartDAO
 	}
 
 	@Override
-	public boolean deleteFromCart(Cart cart) 
+	public boolean deleteFromCart(CartItem cartItem) 
 	{
 		try
 		{
-			sessionFactory.getCurrentSession().delete(cart);
+			sessionFactory.getCurrentSession().delete(cartItem);
 			return true;
 		}
 		catch(Exception e)
@@ -47,11 +47,11 @@ public class CartDAOImpl implements CartDAO
 	}
 
 	@Override
-	public boolean updateCateItem(Cart cart) 
+	public boolean updateCartItem(CartItem cartItem) 
 	{
 		try
 		{
-			sessionFactory.getCurrentSession().update(cart);
+			sessionFactory.getCurrentSession().update(cartItem);
 			return true;
 		}
 		catch(Exception e)
@@ -61,21 +61,21 @@ public class CartDAOImpl implements CartDAO
 	}
 
 	@Override
-	public Cart getCartItem(int cartId) 
+	public CartItem getCartItem(int cartId) 
 	{
 		Session session =sessionFactory.openSession();
-		Cart cart=session.get(Cart.class, cartId);
+		CartItem cartItem=session.get(CartItem.class, cartId);
 		session.close();
-		return cart;
+		return cartItem;
 	}
 
 	@Override
-	public List<Cart> listCartItems(String username) 
+	public List<CartItem> listCartItems(String username) 
 	{
 		Session session=sessionFactory.openSession();
-		Query query=session.createQuery("from Cart where username=:uname and status='N'");
+		Query query=session.createQuery("from CartItem where username=:uname and status='N'");
 		query.setParameter("uname", username);
-		List<Cart> cartItemsList=query.list();
+		List<CartItem> cartItemsList=query.list();
 		return cartItemsList;
 	}
 

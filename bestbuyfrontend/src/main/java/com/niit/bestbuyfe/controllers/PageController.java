@@ -34,5 +34,4 @@ public class PageController
 	{
 		return "test";
 	}
-	
 }

@@ -21,8 +21,15 @@ public class Product
 	
 	@Transient
 	private MultipartFile image;
+	@Transient
+	String imageExt;
 	
-	
+	public String getImageExt() {
+		return imageExt;
+	}
+	public void setImageExt(String imageExt) {
+		this.imageExt = imageExt;
+	}
 	public MultipartFile getImage() {
 		return image;
 	}

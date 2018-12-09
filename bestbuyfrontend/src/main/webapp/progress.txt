@@ -1,1 +1,1 @@
-continue with product, login and register page.
+continue with update price of item in cart if you change the quantity

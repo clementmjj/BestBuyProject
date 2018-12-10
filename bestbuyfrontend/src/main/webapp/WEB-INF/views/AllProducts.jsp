@@ -1,10 +1,10 @@
 <%@include file="Header.jsp"%>
 <html>
-<body>
-	<div class="container-fluid">
+<body class="bg-light">
+	<div class="container-fluid" id="body-container">
 		<div class="row">
 			<c:forEach items="${productList}" var="product">
-				<div class="col ddd">
+				<div class="col thumbnail">
 					<div class="card" style="width: 100%">
 						<a href="<c:url value="/productDisplay/${product.productId}"/>"><img style="height:200px;"
 							class="card-img-top"

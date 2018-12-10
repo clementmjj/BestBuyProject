@@ -1,7 +1,7 @@
 <%@include file="Header.jsp" %>
 <html>
-<body>
-	<div id="body-container">
+<body class="bg-light">
+	<div class="container-fluid" id="body-container">
 	
 	</div>
 </body>

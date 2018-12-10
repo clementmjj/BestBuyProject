@@ -1,1 +1,5 @@
 continue with update price of item in cart if you change the quantity
+
+Pending tasks
+=============
+add cod to delete all cart items associated to a productid if that product is deleted.

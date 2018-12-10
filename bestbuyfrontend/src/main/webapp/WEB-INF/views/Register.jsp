@@ -1,8 +1,8 @@
 <%@include file="Header.jsp"%>
 
 <html>
-<body>
-	<div id="body-container">
+<body class="bg-light">
+	<div class="container-fluid" id="body-container">
 		<h3>Create an account and shop with us</h3>
 		<form:form action="addUser" modelAttribute="addUser">
 			<table>

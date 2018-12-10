@@ -4,10 +4,13 @@ com\niit\bestbuy\model\Category.class
 com\niit\bestbuy\model\User.class
 com\niit\bestbuy\dao\ProductDAO.class
 com\niit\bestbuy\dao\ProductDAOImpl.class
+com\niit\bestbuy\dao\CartItemDAOImpl.class
 com\niit\bestbuy\dao\UserDAOImpl.class
 com\niit\bestbuy\model\Supplier.class
+com\niit\bestbuy\model\CartItem.class
 com\niit\bestbuy\dao\UserDAO.class
 com\niit\bestbuy\dao\SupplierDAO.class
 com\niit\bestbuy\dao\CategoryDAOImpl.class
 com\niit\bestbuy\model\Product.class
 com\niit\bestbuy\dao\SupplierDAOImpl.class
+com\niit\bestbuy\dao\CartItemDAO.class

@@ -8,14 +8,15 @@
 }
 </style>
 </head>
-<body>
-	<div class="container-fluid">
+<body class="bg-light">
+	<div class="container-fluid" id="body-container">
 		<div id="carousel-container" class="carousel slide"
 			data-ride="carousel">
 			<ul class="carousel-indicators">
 				<li data-target="#demo" data-slide-to="0" class="active"></li>
 				<li data-target="#demo" data-slide-to="1"></li>
 				<li data-target="#demo" data-slide-to="2"></li>
+				<li data-target="#demo" data-slide-to="3"></li>
 			</ul>
 			<div class="carousel-inner">
 				<div class="carousel-item active">

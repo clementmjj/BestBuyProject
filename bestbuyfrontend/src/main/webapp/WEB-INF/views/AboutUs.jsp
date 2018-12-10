@@ -1,12 +1,12 @@
-<%@include file="Header.jsp" %>
+<%@include file="Header.jsp"%>
 <html>
 <head>
 <title>About Us</title>
 </head>
-	<body>
-		<div id="body-container">
-			<h3>About us page</h3>
-		</div>
+<body class="bg-light">
+	<div class="container-fluid" id="body-container">
+		<h3>About us page</h3>
+	</div>
 </body>
 </html>
-<%@include file="Footer.jsp" %>
+<%@include file="Footer.jsp"%>

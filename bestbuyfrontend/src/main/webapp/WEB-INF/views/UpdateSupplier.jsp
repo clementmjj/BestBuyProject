@@ -3,8 +3,8 @@
 <head>
 <title>Update Supplier</title>
 </head>
-<body>
-	<div id="body-container">
+<body class="bg-light">
+	<div class="container-fluid" id="body-container">
 		<h3>Update Supplier ${supplier.supplierName} (Id: ${supplierId})</h3>
 		<form:form action="/bestbuyfrontend/updateSupplier"
 			modelAttribute="updateSupplier">

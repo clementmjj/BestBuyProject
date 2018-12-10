@@ -3,8 +3,8 @@
 <head>
 <title>Update Product</title>
 </head>
-<body>
-	<div id="body-container">
+<body class="bg-light">
+	<div class="container-fluid" id="body-container">
 		<h3>Update Product ${product.productName} (Id: ${productId})</h3>
 		<form:form action="/bestbuyfrontend/updateProduct"
 			modelAttribute="updateProduct">

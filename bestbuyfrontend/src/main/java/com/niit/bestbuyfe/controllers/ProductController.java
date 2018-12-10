@@ -210,7 +210,6 @@ public class ProductController
 		{
 			if(f.isFile())
 			{
-				System.out.println("filename: "+f.getName());
 				String fileName=f.getName().substring(0, f.getName().lastIndexOf("."));
 				if(fileName.equals(Integer.toString(productId)))
 				{

@@ -6,7 +6,7 @@
 <body class="bg-light">
 	<div class="container-fluid" id="body-container">
 
-		<div class="modal fade" id="myModal">
+		<div class="modal fade" id="modal_add_product">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -14,7 +14,7 @@
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body">
-						<form:form action="/bestbuyfrontend/addProduct"
+						<form:form action="${pageContext.request.contextPath}/addProduct"
 							modelAttribute="addProduct" enctype="multipart/form-data"
 							method="post">
 							<div class="row">
@@ -77,7 +77,12 @@
 									<p>Select Image</p>
 								</div>
 								<div class="col">
-									<form:input type="file" path="image" />
+									<div class="custom-file">
+										<form:input type="file" path="image" class="custom-file-input" />
+										<label class="custom-file-label" for="customFile">Choose
+											file</label>
+									</div>
+									
 								</div>
 							</div>
 							<div class="row">
@@ -101,7 +106,7 @@
 			</div>
 			<div>
 				<button type="button" class="btn btn-primary" data-toggle="modal"
-					data-target="#myModal">
+					data-target="#modal_add_product">
 					<i class="fa fa-plus"></i> Add Product
 				</button>
 			</div>

@@ -33,29 +33,30 @@
 		<div class="collapse navbar-collapse" id="collapsibleNavbar">
 			<!-- Links -->
 			<ul class="navbar-nav mr-auto">
-				<!-- Dropdown -->
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" id="navbardrop"
-					data-toggle="dropdown"> Manage </a>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="<c:url value="/product"/>">Products</a>
-						<a class="dropdown-item" href="<c:url value="/category"/>">Categories</a>
-						<a class="dropdown-item" href="<c:url value="/supplier"/>">Suppliers</a>
-					</div></li>
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="#" id="navbardrop"
+							data-toggle="dropdown">Manage</a>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="<c:url value="/product"/>">Products</a>
+								<a class="dropdown-item" href="<c:url value="/category"/>">Categories</a>
+								<a class="dropdown-item" href="<c:url value="/supplier"/>">Suppliers</a>
+							</div></li>
 				<li class="nav-item"><a class="nav-link"
 					href="<c:url value="/allproducts"/>">All Products</a></li>
 				<li class="nav-item"><a class="nav-link"
 					href="<c:url value="/viewcart"/>">View Cart</a></li>
-				<li class="nav-item"><a class="nav-link"
-					href="<c:url value="test"/>">Test</a></li>
 			</ul>
 			<ul class="navbar-nav">
 				<li class="nav-item"><a class="nav-link"
-					href="<c:url value="login"/>"> <i class="fa fa-sign-in"></i>
+					href="<c:url value="/login"/>"><i class="fa fa-sign-in"></i>
 						Login
 				</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="<c:url value="register"/>"> <i class="fa fa fa-user-plus"></i>
+					href="<c:url value="/perform_logout"/>"><i
+						class="fa fa-sign-out"></i> Logout
+				</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="<c:url value="register"/>"><i class="fa fa fa-user-plus"></i>
 						Register
 				</a></li>
 			</ul>

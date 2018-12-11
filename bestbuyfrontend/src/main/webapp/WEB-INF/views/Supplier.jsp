@@ -16,22 +16,30 @@
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body">
-						<form:form action="/bestbuyfrontend/addSupplier"
+						<form:form action="${pageContext.request.contextPath}/addSupplier"
 							modelAttribute="addSupplier">
-							<table>
-								<tr>
-									<td>Supplier Name</td>
-									<td><form:input path="supplierName" /></td>
-								</tr>
-								<tr>
-									<td>Supplier Address</td>
-									<td><form:textarea path="supplierAddress" /></td>
-								</tr>
-								<tr>
-									<td><input type="submit" value="Add"
-										class="btn btn-success" /></td>
-								</tr>
-							</table>
+
+							<div class="row">
+								<div class="col">
+									<p>Supplier Name</p>
+								</div>
+								<div class="col">
+									<form:input path="supplierName" class="form-control" />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<p>Supplier Address</p>
+								</div>
+								<div class="col">
+									<form:textarea path="supplierAddress" class="form-control" />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<input type="submit" value="Add" class="btn btn-success form-control" />
+								</div>
+							</div>
 						</form:form>
 					</div>
 					<div class="modal-footer">

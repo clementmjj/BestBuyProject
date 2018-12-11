@@ -28,14 +28,14 @@ public class UserDAOTestCase
 	public void registerUserTest()
 	{
 		User user=new User();
-		user.setUserName("ashwin");
-		user.setUserFullName("Clement S");
-		user.setPassword("abc123");
-		user.setEmail("clement@gmail.com");
+		user.setUserName("johndoe");
+		user.setUserFullName("John Doe");
+		user.setPassword("asd");
+		user.setEmail("john@gmail.com");
 		user.setEnabled(true);
-		user.setMobileNo("8678421588");
-		user.setRole("ROLE_USER");
-		user.setUserAddress("Bangalore");
+		user.setMobileNo("7885474547");
+		user.setRole("ROLE_ADMIN");
+		user.setUserAddress("Mumbai");
 		assertTrue("Problem registering user",userDAO.registerUser(user));
 	}
 	

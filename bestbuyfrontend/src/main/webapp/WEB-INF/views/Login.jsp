@@ -36,7 +36,8 @@
 					<div class="col">
 						<h3>Login</h3>
 						<p>Please enter your username and password</p>
-						<form action="${pageContext.request.contextPath}/perform_login" method="post">
+						<form action=""${pageContext.request.contextPath}/j_spring_security_check"
+							method="post">
 							<div class="row">
 								<div class="col">
 									<input type="text" name="username" placeholder="Username"
@@ -51,8 +52,8 @@
 							</div>
 							<div class="row">
 								<div class="col">
-									<input type="submit" value="Login"
-										class="form-control btn btn-primary" />
+									<input type="submit" value="Login" name="submit"
+										class="form-control btn btn-primary" /> 
 								</div>
 							</div>
 						</form>

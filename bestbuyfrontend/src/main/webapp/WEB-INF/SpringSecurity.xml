@@ -18,17 +18,27 @@
 						http://www.springframework.org/schema/spring-tx.xsd
 						http://www.springframework.org/schema/context
 						http://www.springframework.org/schema/context/spring-context.xsd">
+	<!-- <security:http auto-config="true" use-expressions="false" pattern="/login.jsp*" 
+		security="none"> <security:form-login login-page="/login" default-target-url="/" 
+		login-processing-url="login_success" authentication-failure-url="/login" 
+		authentication-success-forward-url="login_success" /> <security:logout logout-success-url="/login" 
+		logout-url="/perform_logout" /> <security:csrf disabled="true" /> -->
 
-	<security:http auto-config="true" use-expressions="true">
-		<security:form-login login-page="/login"
-			default-target-url="/"
-			login-processing-url="perform_login"
-			authentication-failure-url="/login"
-			authentication-success-forward-url="/login_success" />
-		<security:logout logout-success-url="/login"
-			logout-url="/perform_logout" />
+
+
+	<security:http pattern="/login*" security="none" />
+	<security:http pattern="/resources/**" security="none" />
+<security:http auto-config="true" use-expressions="true">
+		<intercept-url pattern="/" access="permitAll()" />
+		<intercept-url pattern="/**" access="permitAll()" />
+		<intercept-url pattern="/home" access="ROLE_USER"/>
+		<security:form-login login-page="/login"  login-processing-url="j_spring_security_check"/>
 		<security:csrf disabled="true" />
 	</security:http>
+
+
+	<!-- <http> <intercept-url pattern="/**" access="hasRole('USER')" /> <form-login 
+		/> <logout /> </http> -->
 
 	<security:authentication-manager>
 		<security:authentication-provider>

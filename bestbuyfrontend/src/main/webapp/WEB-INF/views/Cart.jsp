@@ -6,15 +6,16 @@
 <body class="bg-light">
 	<div class="container-fluid" id="body-container">
 		<h3>My Cart</h3>
-		<form action="/bestbuyfrontend/checkout" method="post">
+		<form action="<c:url value="/showOrder/Rohan"/>" method="post">
 			<div class="table-responsive-sm">
 				<table class="table table-hover table-cart">
 					<thead class="thead-light">
 						<tr>
 							<th>Sl No.</th>
 							<th>Product</th>
+							<th>Price</th>
 							<th>Quantity</th>
-							<th>Tot Price</th>
+							<th>Total Price</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -24,9 +25,9 @@
 							<td>
 								<div class="row">
 									<div class="col-sm-3">
-										<img style="width: 100px;"
+										<img style="width: 70px;"
 											src="${pageContext.request.contextPath}/resources/images/ProductImages/${cartItem.productId}${cartItem.imageExt}"
-											alt="${cartItem.productName}" style="//swidth: 100px;" />
+											alt="${cartItem.productName}" />
 									</div>
 									<div class="col-sm-9">
 										<h6>${cartItem.productName}</h6>
@@ -34,15 +35,11 @@
 								</div>
 
 							</td>
-
-							<td><input class="form-control" type="number"
-								name="quantity" min="1" max="${cartItem.stock}"
+							<td id="price_${cartItem.productId}">&#8377;${cartItem.price}</td>
+							<td><input id="quantity_${cartItem.productId}" class="form-control" type="number" oninput="updatePrice(this.id)"
+								name="${cartItem.productId}_quantity" min="1" max="${cartItem.stock}"
 								value="${cartItem.quantity}" style="width: 100px;" /></td>
-							<td>&#8377;${(cartItem.price*cartItem.quantity)}<br> <a
-								class="link-default"
-								href="<c:url value="/updateCartItemPrice/${quantity.value}"/>">Update
-									price</a>
-							</td>
+							<td id="totalPrice_${cartItem.productId}" class="productSubtotal">&#8377;${(cartItem.price*cartItem.quantity)}</td>
 							<td><a class="link-default"
 								href="<c:url value="/deletefromcart/${cartItem.cartItemId}"/>"><i
 									data-toggle="tooltip" title="Remove Item" class="fa fa-remove"></i></a></td>
@@ -50,8 +47,8 @@
 					</c:forEach>
 					<thead class="thead-dark">
 						<tr>
-							<th colspan="3">Grand Total</th>
-							<th colspan="2"><c:set var="total" value="0" /> <c:forEach
+							<th colspan="4">Grand Total</th>
+							<th id="grandTotal" colspan="2"><c:set var="total" value="0" /> <c:forEach
 									items="${cartItems}" var="cartItem">
 									<c:set var="itemTotal"
 										value="${(cartItem.price*cartItem.quantity)}" />

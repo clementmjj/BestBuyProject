@@ -6,8 +6,6 @@
 </head>
 <body class="bg-light">
 	<div class="container-fluid" id="body-container">
-
-
 		<div class="modal fade" id="myModal">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -17,7 +15,7 @@
 					</div>
 					<div class="modal-body">
 						<form:form action="${pageContext.request.contextPath}/addSupplier"
-							modelAttribute="addSupplier">
+							modelAttribute="addSupplier" method="post">
 
 							<div class="row">
 								<div class="col">

@@ -22,17 +22,7 @@
 			<a class="btn btn-primary" href="<c:url value="/addtocart/${product.productId}"/>">Add To Cart</a>
 			</div>
 		</div>
-	
-	
-	
-		
-		
-		
-		
-		
-		
 	</div>
-
 </body>
 </html>
 <%@include file="Footer.jsp"%>

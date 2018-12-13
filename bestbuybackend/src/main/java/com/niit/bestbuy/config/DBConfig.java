@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.niit.bestbuy.model.CartItem;
 import com.niit.bestbuy.model.Category;
+import com.niit.bestbuy.model.OrderDetail;
 import com.niit.bestbuy.model.Product;
 import com.niit.bestbuy.model.Supplier;
 import com.niit.bestbuy.model.User;
@@ -50,6 +51,7 @@ public class DBConfig
 		factory.addAnnotatedClass(Supplier.class);
 		factory.addAnnotatedClass(User.class);
 		factory.addAnnotatedClass(CartItem.class);
+		factory.addAnnotatedClass(OrderDetail.class);
 		
 		System.out.println("Session Factory created");
 		return factory.buildSessionFactory();

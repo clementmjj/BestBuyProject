@@ -9,10 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.niit.bestbuy.dao.CartItemDAO;
@@ -30,7 +28,7 @@ public class CartItemController
 	
 	public void showCartItems(Model m, HttpServletRequest request) throws UnsupportedEncodingException
 	{
-		List<CartItem> cartItemList=cartDAO.listCartItems("username");
+		List<CartItem> cartItemList=cartDAO.listCartItems("Rohan");
 		//get cart items images
 		for(CartItem cartItem : cartItemList)
 		{
@@ -62,7 +60,7 @@ public class CartItemController
 	@RequestMapping(value="/addtocart/{productId}")
 	public String addToCart(@PathVariable("productId") int productId, Model m, HttpServletRequest request) throws UnsupportedEncodingException
 	{
-		List<CartItem> cartItemList=cartDAO.listCartItems("username");
+		List<CartItem> cartItemList=cartDAO.listCartItems("Rohan");
 		boolean isItemInCart=false;
 		for(CartItem ci : cartItemList)
 		{
@@ -83,7 +81,7 @@ public class CartItemController
 			cartItem.setProductName(product.getProductName());
 			cartItem.setPrice(product.getPrice());
 			cartItem.setStatus("N");
-			cartItem.setUsername("username");
+			cartItem.setUsername("Rohan");
 			cartDAO.addToCart(cartItem);
 		}
 		showCartItems(m, request);
@@ -110,4 +108,6 @@ public class CartItemController
 		showCartItems(m, request);
 		return "Cart";
 	}
+	
+	
 }

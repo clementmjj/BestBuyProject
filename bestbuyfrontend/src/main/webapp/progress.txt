@@ -1,5 +1,5 @@
-continue with update price of item in cart if you change the quantity
+continue with receipt page - copy flipkart receipt
 
 Pending tasks
 =============
-add cod to delete all cart items associated to a productid if that product is deleted.
+add code to delete all cart items associated to a productid if that product is deleted.

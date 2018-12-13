@@ -21,19 +21,19 @@ public class UserController
 	@RequestMapping(value="/login")
 	public String showLogin(Model m)
 	{
-		m.addAttribute("login", new User());
 		return "Login";
 	}
 	
-	@RequestMapping(value="/perform_login")
+	@RequestMapping(value="/login_success")
 	public String loginSuccess(HttpSession session, Model m, Principal principal)
 	{
 		System.out.println("in login success method");
 		String page="";
 		boolean loggedIn=false;
 
-		SecurityContext sContext=SecurityContextHolder.getContext();//this object will contain the logged-in user details like username and role
-		Authentication authentication =sContext.getAuthentication(); //
+		//this object will contain the logged-in user details like username and role
+		SecurityContext sContext=SecurityContextHolder.getContext();
+		Authentication authentication =sContext.getAuthentication();
 		System.out.println(authentication.getName());
 		
 		//getting the role of user

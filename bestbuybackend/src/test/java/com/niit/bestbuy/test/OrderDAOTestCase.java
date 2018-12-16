@@ -12,7 +12,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import com.niit.bestbuy.dao.CartItemDAO;
 import com.niit.bestbuy.dao.OrderDAO;
-import com.niit.bestbuy.model.CartItem;
 import com.niit.bestbuy.model.OrderDetail;
 
 public class OrderDAOTestCase 
@@ -28,7 +27,7 @@ public class OrderDAOTestCase
 		context.refresh();
 		orderDAO=(OrderDAO)context.getBean("orderDAO");
 	}
-	
+	@Ignore
 	@Test
 	public void createOrderTest()
 	{
@@ -46,5 +45,16 @@ public class OrderDAOTestCase
 	{
 		assertTrue("Problem in updating Cart item status",orderDAO.updateCartItemStatus("Rohan"));
 		
+	}
+	@Ignore
+	@Test
+	public void listOrdersTest()
+	{
+		List<OrderDetail> ordersList=orderDAO.listOrders("clement");
+		assertTrue("Problem in listing orders",orderDAO.listOrders("clement").size()>0);
+		for(OrderDetail order : ordersList)
+		{
+			System.out.println(order.getOrderId());
+		}
 	}
 }

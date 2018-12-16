@@ -2,10 +2,17 @@
 <html>
 <head>
 <title>Manage Products</title>
+<c:if test="${errors==true}">
+	<script>
+		function showAddProductWithErrors() {
+			document.getElementById("btn-addProduct").click();
+		}
+		window.onload = showAddProductWithErrors;
+	</script>
+</c:if>
 </head>
 <body class="bg-light">
 	<div class="container-fluid" id="body-container">
-
 		<div class="modal fade" id="modal_add_product">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -23,6 +30,7 @@
 								</div>
 								<div class="col">
 									<form:input path="productName" class="form-control" />
+									<form:errors path="productName" />
 								</div>
 							</div>
 							<div class="row">
@@ -31,6 +39,7 @@
 								</div>
 								<div class="col">
 									<form:textarea path="productDesc" class="form-control" />
+									<form:errors path="productDesc" />
 								</div>
 							</div>
 							<div class="row">
@@ -82,7 +91,7 @@
 										<label class="custom-file-label" for="customFile">Choose
 											file</label>
 									</div>
-									
+
 								</div>
 							</div>
 							<div class="row">
@@ -105,8 +114,8 @@
 				<h3>Product list</h3>
 			</div>
 			<div>
-				<button type="button" class="btn btn-primary" data-toggle="modal"
-					data-target="#modal_add_product">
+				<button type="button" id="btn-addProduct" class="btn btn-primary"
+					data-toggle="modal" data-target="#modal_add_product">
 					<i class="fa fa-plus"></i> Add Product
 				</button>
 			</div>

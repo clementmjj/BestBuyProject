@@ -1,33 +1,35 @@
 package com.niit.bestbuyfe.controllers;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+//import javax.validation.Valid;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.niit.bestbuy.dao.CartItemDAO;
 import com.niit.bestbuy.dao.CategoryDAO;
 import com.niit.bestbuy.dao.ProductDAO;
 import com.niit.bestbuy.dao.SupplierDAO;
+import com.niit.bestbuy.model.CartItem;
 import com.niit.bestbuy.model.Category;
 import com.niit.bestbuy.model.Product;
 import com.niit.bestbuy.model.Supplier;
@@ -44,6 +46,8 @@ public class ProductController
 	CategoryDAO categoryDAO;
 	@Autowired
 	SupplierDAO supplierDAO;
+	@Autowired
+	CartItemDAO cartDAO;
 		
 	@RequestMapping(value="/product")
 	public String showProduct(Model m)
@@ -116,29 +120,38 @@ public class ProductController
 	
 	
 	@RequestMapping(value="/addProduct", method=RequestMethod.POST)
-	public String addProduct(@ModelAttribute("addProduct") Product product, Model m, HttpServletRequest request)
+	public String addProduct(@ModelAttribute("addProduct") @Valid Product product, BindingResult result, Model m, HttpServletRequest request)
 	{
-		productDAO.add(product);
-		MultipartFile file=product.getImage();
-		if(!file.isEmpty())
+		if(result.hasErrors())
 		{
-			String fileExt=file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-			try
+			m.addAttribute("errors",true);
+		}
+		else
+		{	
+			productDAO.add(product);
+			
+			//getting image
+			MultipartFile file=product.getImage();
+			if(!file.isEmpty())
 			{
-				byte[] bytes=file.getBytes();
-				Path path=Paths.get(getImagesDir(request)+product.getProductId()+fileExt);
-				Files.write(path, bytes);
-				System.out.println("file uploaded");
-			} 
-			catch (Exception e)
-			{
-				e.printStackTrace();
+				String fileExt=file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+				try
+				{
+					byte[] bytes=file.getBytes();
+					Path path=Paths.get(getImagesDir(request)+product.getProductId()+fileExt);
+					Files.write(path, bytes);
+					System.out.println("file uploaded");
+				} 
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
 			}
+			List<Product> productList=productDAO.listProducts();
+			m.addAttribute("productList",productList);
+			m.addAttribute("addProduct",new Product());
 		}
 		
-		List<Product> productList=productDAO.listProducts();
-		m.addAttribute("productList",productList);
-		m.addAttribute("addProduct",new Product());
 		return "Product";
 	}
 	
@@ -147,6 +160,13 @@ public class ProductController
 	{
 		Product product=productDAO.getProduct(productId);
 		productDAO.delete(product);
+		
+		//delete product from all carts
+		for(CartItem ci : cartDAO.listAllCartItems())
+		{
+			if(ci.getProductId()==productId)
+				cartDAO.deleteFromCart(ci);
+		}
 		
 		//delete image
 		File productImage=getProductImage(productId, request);
@@ -174,13 +194,22 @@ public class ProductController
 	}
 	
 	@RequestMapping(value="/updateProduct", method=RequestMethod.POST)
-	public String updateProduct(@ModelAttribute("updateProduct") Product product, Model m)
+	public String updateProduct(@ModelAttribute("updateProduct") /*@Valid*/ Product product, BindingResult result, Model m)
 	{
-		productDAO.update(product);
-		List<Product> productList=productDAO.listProducts();
-		m.addAttribute("productList",productList);
-		m.addAttribute("addProduct", new Product());
-		return "Product";
+		if(result.hasErrors())
+		{
+			m.addAttribute("updateProduct", product);
+			return "UpdateProduct";
+		}
+		else
+		{
+			productDAO.update(product);
+			List<Product> productList=productDAO.listProducts();
+			m.addAttribute("productList",productList);
+			m.addAttribute("addProduct", new Product());
+			return "Product";
+		}
+		
 	}
 	
 	@RequestMapping(value="/allproducts")

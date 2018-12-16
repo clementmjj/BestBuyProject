@@ -17,8 +17,7 @@
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<script
-	src="${pageContext.request.contextPath}/resources/JS/scripts.js"></script>
+<script src="${pageContext.request.contextPath}/resources/JS/scripts.js"></script>
 
 </head>
 <body>
@@ -35,32 +34,47 @@
 		<div class="collapse navbar-collapse" id="collapsibleNavbar">
 			<!-- Links -->
 			<ul class="navbar-nav mr-auto">
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle" href="#" id="navbardrop"
-							data-toggle="dropdown">Manage</a>
-							<div class="dropdown-menu">
-								<a class="dropdown-item" href="<c:url value="/product"/>">Products</a>
-								<a class="dropdown-item" href="<c:url value="/category"/>">Categories</a>
-								<a class="dropdown-item" href="<c:url value="/supplier"/>">Suppliers</a>
-							</div></li>
-				<li class="nav-item"><a class="nav-link"
-					href="<c:url value="/allproducts"/>">All Products</a></li>
-				<li class="nav-item"><a class="nav-link"
-					href="<c:url value="/viewcart"/>">View Cart</a></li>
+				<c:if test="${sessionScope.role=='ROLE_ADMIN'}">
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="navbardrop"
+						data-toggle="dropdown">Manage</a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="<c:url value="/product"/>">Products</a>
+							<a class="dropdown-item" href="<c:url value="/category"/>">Categories</a>
+							<a class="dropdown-item" href="<c:url value="/supplier"/>">Suppliers</a>
+						</div></li>
+				</c:if>
+				<c:if test="${sessionScope.role=='ROLE_USER'}">
+					<li class="nav-item"><a class="nav-link"
+						href="<c:url value="/allproducts"/>">All Products</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="<c:url value="/viewcart"/>">View Cart</a></li>
+				</c:if>
 			</ul>
+			<c:if test="${sessionScope.loggedIn}">
+				<p class="navbar-nav" style="color: #fff;">Welcome ${username}</p>
+			</c:if>
 			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link"
-					href="<c:url value="/login"/>"><i class="fa fa-sign-in"></i>
-						Login
-				</a></li>
-				<li class="nav-item"><a class="nav-link"
-					href="<c:url value="/perform_logout"/>"><i
-						class="fa fa-sign-out"></i> Logout
-				</a></li>
-				<li class="nav-item"><a class="nav-link"
-					href="<c:url value="register"/>"><i class="fa fa fa-user-plus"></i>
-						Register
-				</a></li>
+				<c:if test="${!sessionScope.loggedIn}">
+					<li class="nav-item"><a class="nav-link"
+						href="<c:url value="/login"/>"><i class="fa fa-sign-in"></i>
+							Login </a></li>
+				</c:if>
+				<c:if test="${sessionScope.loggedIn}">
+					<c:if test="${sessionScope.role=='ROLE_USER'}">
+						<li class="nav-item"><a class="nav-link"
+							href="<c:url value="/myOrders"/>"><i
+								class="fa fa-shopping-bag"></i> My Orders </a></li>
+					</c:if>
+					<li class="nav-item"><a class="nav-link"
+						href="<c:url value="/perform_logout"/>"><i
+							class="fa fa-sign-out"></i> Logout </a></li>
+				</c:if>
+				<c:if test="${sessionScope.role==null}">
+					<li class="nav-item"><a class="nav-link"
+						href="<c:url value="register"/>"><i class="fa fa fa-user-plus"></i>
+							Register </a></li>
+				</c:if>
 			</ul>
 		</div>
 	</nav>

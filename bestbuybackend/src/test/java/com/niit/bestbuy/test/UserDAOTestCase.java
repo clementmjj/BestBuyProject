@@ -2,7 +2,6 @@ package com.niit.bestbuy.test;
 
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-import java.util.List;
 
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -23,12 +22,12 @@ public class UserDAOTestCase
 		context.refresh();
 		userDAO=(UserDAO)context.getBean("userDAO");
 	}
-	
+	@Ignore
 	@Test
 	public void registerUserTest()
 	{
 		User user=new User();
-		user.setUserName("johndoe");
+		user.setUsername("johndoe");
 		user.setUserFullName("John Doe");
 		user.setPassword("asd");
 		user.setEmail("john@gmail.com");

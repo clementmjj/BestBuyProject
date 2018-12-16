@@ -11,7 +11,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import com.niit.bestbuy.dao.CategoryDAO;
 import com.niit.bestbuy.model.Category;
-import com.niit.bestbuy.model.Supplier;
 
 public class CategoryDAOTestCase 
 {
@@ -25,7 +24,7 @@ public class CategoryDAOTestCase
 		context.refresh();
 		categoryDAO=(CategoryDAO)context.getBean("categoryDAO");
 	}
-	
+	@Ignore
 	@Test
 	public void addCategoryTest()
 	{

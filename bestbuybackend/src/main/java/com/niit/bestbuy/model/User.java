@@ -3,21 +3,62 @@ package com.niit.bestbuy.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table
 public class User 
 {
 	@Id
-	private String userName;
-	private String password, userFullName, userAddress, role, email, mobileNo;
+	@NotBlank
+	@Size(min=8, max=12, message="Username must be between 8 to 12 characters")
+	private String username;
+	
+	//@NotBlank
+	//@Size(min=8, max=12)
+	private String password;
+	
+	@Transient
+	//@NotBlank
+	//@Size(min=8, max=12)
+	private String confirmPassword;
+	
+	//@NotBlank
+	//@Size(min=1, max=20, message="Full name must be between 1 to 20 characters")
+	private String userFullName;
+	
+	//@NotBlank
+	//@Size(min=1, max=200, message="Address must be between 8 to 200 characters")
+	private String userAddress;
+	
+	//@NotBlank
+	//@Pattern(regexp="('ROLE_ADMIN'|'ROLE_USER')")
+	private String role;
+	
+	//@NotBlank
+	//@Email
+	private String email;
+	
+	//@NotBlank
+	//@Pattern(regexp="([0-9]{10})")
+	private String mobileNo;
+	
+	//@NotBlank
 	private boolean enabled;
 	
-	public String getuserName() {
-		return userName;
+	public String getConfirmPassword() {
+		return confirmPassword;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getPassword() {
 		return password;

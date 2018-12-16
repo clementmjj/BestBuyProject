@@ -1,5 +1,7 @@
 package com.niit.bestbuy.dao;
 
+import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -50,6 +52,26 @@ public class OrderDAOImpl implements OrderDAO
 		{
 			return false;
 		}
+	}
+
+	@Override
+	public List<OrderDetail> listOrders(String username) 
+	{
+		Session session=sessionFactory.openSession();
+		Query query=session.createQuery("from OrderDetail where username=:uname");
+		query.setParameter("uname", username);
+		List<OrderDetail> listOrders=query.list();
+		session.close();
+		return listOrders;
+	}
+
+	@Override
+	public OrderDetail getOrder(int orderId) 
+	{
+		Session session=sessionFactory.openSession();
+		OrderDetail order=session.get(OrderDetail.class, orderId);
+		session.close();
+		return order;
 	}
 
 }

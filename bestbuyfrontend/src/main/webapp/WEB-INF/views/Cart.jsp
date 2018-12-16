@@ -6,7 +6,7 @@
 <body class="bg-light">
 	<div class="container-fluid" id="body-container">
 		<h3>My Cart</h3>
-		<form action="<c:url value="/showOrder/Rohan"/>" method="post">
+		<form action="<c:url value="/showOrder/${username}"/>" method="post">
 			<div class="table-responsive-sm">
 				<table class="table table-hover table-cart">
 					<thead class="thead-light">

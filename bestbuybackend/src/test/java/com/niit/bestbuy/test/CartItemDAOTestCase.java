@@ -25,7 +25,7 @@ public class CartItemDAOTestCase
 		context.refresh();
 		cartDAO=(CartItemDAO)context.getBean("cartDAO");
 	}
-	
+	@Ignore
 	@Test
 	public void addCartItemTest()
 	{
@@ -57,9 +57,24 @@ public class CartItemDAOTestCase
 	
 	@Ignore
 	@Test
-	public void listCartTest()
+	public void listCartByUnameTest()
 	{
-		List<CartItem> cartList=cartDAO.listCartItems("sunil");
+		List<CartItem> cartList=cartDAO.listCartItemsByUsername("clement");
+		assertTrue("Problem in listing cart items",cartList.size()>0);
+		
+		for(CartItem c : cartList)
+		{
+			System.out.print("Cart Id: "+c.getCartItemId()+"\t");
+			System.out.print("Cart price: "+c.getPrice()+"\t");
+			System.out.print("Cart productId: "+c.getProductId()+"\n\n");
+		}
+	}
+	
+	@Ignore
+	@Test
+	public void listAllCartItemsTest()
+	{
+		List<CartItem> cartList=cartDAO.listAllCartItems();
 		assertTrue("Problem in listing cart items",cartList.size()>0);
 		
 		for(CartItem c : cartList)

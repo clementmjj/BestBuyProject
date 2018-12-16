@@ -10,7 +10,6 @@ import org.junit.Ignore;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.niit.bestbuy.dao.SupplierDAO;
-import com.niit.bestbuy.model.Category;
 import com.niit.bestbuy.model.Supplier;
 
 public class SupplierDAOTestCase 

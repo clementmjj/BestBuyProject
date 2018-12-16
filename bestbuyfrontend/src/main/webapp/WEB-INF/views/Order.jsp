@@ -44,7 +44,7 @@
 			Shopping</a>
 		<h4>Choose Payment Mode</h4>
 		<form:form modelAttribute="orderDetail"
-			action="${pageContext.request.contextPath}/confirmOrder/${username}"
+			action="${pageContext.request.contextPath}/confirmOrder"
 			method="post">
 			<div class="row">
 				<div class="col-sm-3">

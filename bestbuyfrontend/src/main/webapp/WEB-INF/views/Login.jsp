@@ -36,7 +36,7 @@
 					<div class="col">
 						<h3>Login</h3>
 						<p>Please enter your username and password</p>
-						<form action=""${pageContext.request.contextPath}/j_spring_security_check"
+						<form action="${pageContext.request.contextPath}/perform_login"
 							method="post">
 							<div class="row">
 								<div class="col">

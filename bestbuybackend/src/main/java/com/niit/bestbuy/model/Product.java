@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+//import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,8 +17,10 @@ public class Product
 	@Id
 	@GeneratedValue
 	private int productId;
+	
 	private int supplierId, categoryId, stock;
 	private double price;
+	@NotBlank(message="required")
 	private String productName, productDesc;
 	
 	@Transient

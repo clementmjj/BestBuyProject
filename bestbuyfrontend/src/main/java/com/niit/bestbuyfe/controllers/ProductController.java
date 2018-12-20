@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -122,16 +123,22 @@ public class ProductController
 	@RequestMapping(value="/addProduct", method=RequestMethod.POST)
 	public String addProduct(@ModelAttribute("addProduct") @Valid Product product, BindingResult result, Model m, HttpServletRequest request)
 	{
+		MultipartFile file=product.getImage();
 		if(result.hasErrors())
 		{
+			if(file.isEmpty())
+			{
+				System.out.println("no file");
+				result.addError(new FieldError("imageInput","image", "Please select a valid image"));
+			}
 			m.addAttribute("errors",true);
+			return "Product";
 		}
 		else
 		{	
 			productDAO.add(product);
 			
-			//getting image
-			MultipartFile file=product.getImage();
+			//saving image
 			if(!file.isEmpty())
 			{
 				String fileExt=file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
@@ -194,11 +201,10 @@ public class ProductController
 	}
 	
 	@RequestMapping(value="/updateProduct", method=RequestMethod.POST)
-	public String updateProduct(@ModelAttribute("updateProduct") /*@Valid*/ Product product, BindingResult result, Model m)
+	public String updateProduct(@ModelAttribute("updateProduct") @Valid Product product, BindingResult result, Model m)
 	{
 		if(result.hasErrors())
 		{
-			m.addAttribute("updateProduct", product);
 			return "UpdateProduct";
 		}
 		else

@@ -1,10 +1,13 @@
 package com.niit.bestbuyfe.controllers;
 
 import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,17 +31,22 @@ public class CategoryController
 	}
 	
 	@RequestMapping(value="/addCategory",method=RequestMethod.POST)
-	public String addCategoryDetail(@RequestParam("categoryName")String categoryName,@RequestParam("categoryDesc")String categoryDesc,Model m)
+	public String addCategory(@RequestParam("categoryName")String categoryName,@RequestParam("categoryDesc")String categoryDesc,Model m, @Valid Category category, BindingResult result)
 	{
-		Category category=new Category();
-		category.setCategoryName(categoryName);
-		category.setCategoryDesc(categoryDesc);
-			
-		categoryDAO.add(category);
-		
+		if(result.hasErrors())
+		{
+			System.out.println(result.getErrorCount());
+			m.addAttribute("errors",true);
+		}
+		else
+		{
+			//Category category=new Category();
+			category.setCategoryName(categoryName);
+			category.setCategoryDesc(categoryDesc);
+			categoryDAO.add(category);
+		}
 		List<Category> categoryList=categoryDAO.listCategories();
 		m.addAttribute("categoryList", categoryList); 
-		
 		return "Category";
 	}
 	

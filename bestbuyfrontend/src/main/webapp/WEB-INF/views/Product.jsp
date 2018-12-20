@@ -30,7 +30,7 @@
 								</div>
 								<div class="col">
 									<form:input path="productName" class="form-control" />
-									<form:errors path="productName" />
+									<form:errors class="error-text" path="productName" />
 								</div>
 							</div>
 							<div class="row">
@@ -39,7 +39,7 @@
 								</div>
 								<div class="col">
 									<form:textarea path="productDesc" class="form-control" />
-									<form:errors path="productDesc" />
+									<form:errors class="error-text" path="productDesc" />
 								</div>
 							</div>
 							<div class="row">
@@ -51,6 +51,7 @@
 										<form:option value="0">--select--</form:option>
 										<form:options items="${supplierListMap}" />
 									</form:select>
+									<form:errors class="error-text" path="supplierId" />
 								</div>
 							</div>
 							<div class="row">
@@ -62,6 +63,7 @@
 										<form:option value="0">--select--</form:option>
 										<form:options items="${categoryListMap}" />
 									</form:select>
+									<form:errors class="error-text" path="categoryId" />
 								</div>
 							</div>
 							<div class="row">
@@ -70,7 +72,8 @@
 
 								</div>
 								<div class="col">
-									<form:input path="price" class="form-control" />
+									<form:input type="number" path="price" class="form-control" />
+									<form:errors class="error-text" path="price" />
 								</div>
 							</div>
 							<div class="row">
@@ -78,7 +81,8 @@
 									<p>Stock</p>
 								</div>
 								<div class="col">
-									<form:input path="stock" class="form-control" />
+									<form:input type="number" path="stock" class="form-control" />
+									<form:errors class="error-text" path="stock" />
 								</div>
 							</div>
 							<div class="row">
@@ -91,7 +95,7 @@
 										<label class="custom-file-label" for="customFile">Choose
 											file</label>
 									</div>
-
+									<form:errors class="error-text" path="image" />
 								</div>
 							</div>
 							<div class="row">

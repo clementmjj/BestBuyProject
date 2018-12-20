@@ -4,7 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -12,40 +14,35 @@ import javax.validation.constraints.Size;
 public class User 
 {
 	@Id
-	@NotBlank
+	@NotBlank(message="Must not be blank")
 	@Size(min=8, max=12, message="Username must be between 8 to 12 characters")
 	private String username;
 	
-	//@NotBlank
-	//@Size(min=8, max=12)
+	@NotBlank(message="Must not be blank")
+	@Size(min=8, max=12, message="Password must be between 8 to 12 characters")
 	private String password;
 	
 	@Transient
-	//@NotBlank
-	//@Size(min=8, max=12)
 	private String confirmPassword;
 	
-	//@NotBlank
-	//@Size(min=1, max=20, message="Full name must be between 1 to 20 characters")
+	@NotBlank(message="Must not be blank")
+	@Size(min=1, max=20, message="Full name must be between 1 to 20 characters")
 	private String userFullName;
 	
-	//@NotBlank
-	//@Size(min=1, max=200, message="Address must be between 8 to 200 characters")
+	@NotBlank(message="Must not be blank")
+	@Size(min=1, max=200, message="Address must be between 1 to 200 characters")
 	private String userAddress;
 	
-	//@NotBlank
-	//@Pattern(regexp="('ROLE_ADMIN'|'ROLE_USER')")
 	private String role;
 	
-	//@NotBlank
-	//@Email
+	@NotBlank(message="Must not be blank")
+	@Email(message="Must be a well-formed email address")
 	private String email;
 	
-	//@NotBlank
-	//@Pattern(regexp="([0-9]{10})")
+	@NotBlank(message="Must not be blank")
+	@Pattern(regexp="([0-9]{10})", message="Please enter a 10 digit number")
 	private String mobileNo;
 	
-	//@NotBlank
 	private boolean enabled;
 	
 	public String getConfirmPassword() {

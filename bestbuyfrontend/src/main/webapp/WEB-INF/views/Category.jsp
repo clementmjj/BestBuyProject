@@ -2,6 +2,14 @@
 <html>
 <head>
 <title>Manage Categories</title>
+<c:if test="${errors==true}">
+	<script>
+		function showAddCategoryWithErrors() {
+			document.getElementById("btn-addCategory").click();
+		}
+		window.onload = showAddCategoryWithErrors;
+	</script>
+</c:if>
 </head>
 <body class="bg-light">
 	<div class="container-fluid" id="body-container">
@@ -21,6 +29,7 @@
 								<div class="col">
 									<input type="text" id="categoryName" name="categoryName"
 										class="form-control" />
+										<form:errors class="error-text" path="categoryName" />
 								</div>
 							</div>
 							<div class="row">
@@ -30,6 +39,7 @@
 								<div class="col">
 									<input type="text" id="categoryDesc" name="categoryDesc"
 										class="form-control" />
+										<form:errors class="error-text" path="categoryDesc" />
 								</div>
 							</div>
 							<div class="row">
@@ -52,7 +62,7 @@
 				<h3>Category list</h3>
 			</div>
 			<div>
-				<button type="button" class="btn btn-primary" data-toggle="modal"
+				<button id="btn-addCategory" type="button" class="btn btn-primary" data-toggle="modal"
 					data-target="#myModal">
 					<i class="fa fa-plus"></i> Add Category
 				</button>

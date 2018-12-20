@@ -36,6 +36,9 @@
 					<div class="col">
 						<h3>Login</h3>
 						<p>Please enter your username and password</p>
+						<c:if test="${loginError==true}">
+							<p class="error-text">Invalid credentials</p>
+						</c:if>
 						<form action="${pageContext.request.contextPath}/perform_login"
 							method="post">
 							<div class="row">

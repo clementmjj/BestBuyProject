@@ -3,7 +3,7 @@
 
 </head>
 <body>
-	<div class="container-fluid fixed-bottom" id="footer">
+	<div class="container-fluid" id="footer">
 		<div class="row">
 			<div class="col">
 				<nav

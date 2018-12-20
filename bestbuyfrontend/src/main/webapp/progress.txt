@@ -1,4 +1,4 @@
-continue with receipt page - copy flipkart receipt
+category validation not working, continue with supplier.
 
 Pending tasks
 =============

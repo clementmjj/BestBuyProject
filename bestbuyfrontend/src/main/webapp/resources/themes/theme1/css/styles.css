@@ -49,6 +49,7 @@
 
 #body-container {
 	padding-top: 65px;
+	min-height:100%;
 }
 
 .link-default {
@@ -95,4 +96,9 @@
 	padding: 10px;
 	margin-top: 20px;
 	border-radius: 3px;
+}
+
+.error-text {
+	color: red;
+	font-size: small;
 }

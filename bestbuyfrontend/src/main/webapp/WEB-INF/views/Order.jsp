@@ -2,6 +2,10 @@
 <html>
 <head>
 <title>My Order</title>
+<script>
+	window.onload = showPaymentForm;
+</script>
+
 </head>
 <body>
 <body class="bg-light">
@@ -43,45 +47,91 @@
 		<a class="link-default" href="<c:url value="/allproducts"/>">Continue
 			Shopping</a>
 		<h4>Choose Payment Mode</h4>
-		<form:form modelAttribute="orderDetail"
-			action="${pageContext.request.contextPath}/confirmOrder"
-			method="post">
-			<div class="row">
-				<div class="col-sm-3">
-					<form:select size="3" class="form-control nav" path="paymentMode">
-						<form:option value="Credit Card" class="nav-link"
-							data-toggle="tab" href="#creditcard">Credit Card</form:option>
-						<form:option value="Debit Card" class="nav-link" data-toggle="tab"
-							href="#debitcard">Debit Card</form:option>
-						<form:option value="Cash on Delivery" class="nav-link"
-							data-toggle="tab" href="#cashondelivery">Cash On Delivery</form:option>
-					</form:select>
-
-				</div>
-				<div class="col-sm-9">
-					<div class="tab-content">
-						<div id="creditcard" class="container tab-pane active">
-							<input type="text" class="form-control" placeholder="Card Number" />
-							<input type="date" class="form-control" placeholder="Expiry Date" />
-							<input type="text" class="form-control" placeholder="CVV" />
-						</div>
-						<div id="debitcard" class="container tab-pane fade">
-							<input type="text" class="form-control" placeholder="Card Number" />
-							<input type="date" class="form-control" placeholder="Expiry Date" />
-							<input type="text" class="form-control" placeholder="CVV" />
-						</div>
-						<div id="cashondelivery" class="container tab-pane fade">
-							<p>cash on delivery details</p>
-						</div>
-					</div>
-				</div>
-			</div>
+		<div class="d-flex justify-content-start">
 			<div class="row">
 				<div class="col">
-					<button type="submit" class="btn btn-success">Place Order</button>
+					<c:if test="${errorsList!=null}">
+						<div id="errors-container">
+							<div class="alert alert-danger alert-dismissible">
+								<button type="button" id="error-box-close-button" class="close" data-dismiss="alert">&times;</button>
+								<c:forEach items="${errorsList}" var="error">
+									<strong>Error!</strong> ${error}<br>
+								</c:forEach>
+							</div>
+						</div>
+					</c:if>
+					<form:form modelAttribute="orderDetail"
+						action="${pageContext.request.contextPath}/confirmOrder"
+						method="post">
+						<div class="row">
+							<div class="col">
+								<div class="form-group">
+									<form:select id="payment-select" path="paymentMode"
+										class="form-control" onchange="showPaymentForm(), closeErrorContainer()">
+										<form:option value="Credit Card">Credit Card</form:option>
+										<form:option value="Debit Card">Debit Card</form:option>
+										<form:option value="Cash On Delivery">Cash On Delivery</form:option>
+									</form:select>
+								</div>
+								<div id="creditcard-container" style="display: none;">
+									<div class="row">
+										<div class="col">
+											<div class="form-group">
+												<label>Credit Card Number</label> <input type="text"
+													class="form-control" pattern="[0-9]{16}" title="Must be 16 digits"
+													name="CreditCardNo" />
+											</div>
+										</div>
+										<div class="col">
+											<div class="form-group">
+												<label>Expiry Date</label> <input type="month"
+													name="CreditCardExp" min="${ExpMin}" class="form-control" />
+											</div>
+										</div>
+										<div class="col">
+											<div class="form-group">
+												<label>CVV</label> <input type="text" maxlength="3"
+													class="form-control" placeholder="CVV" name="CreditCardCVV" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div id="debitcard-container" style="display: none;">
+									<div class="row">
+										<div class="col">
+											<div class="form-group">
+												<label>Debit Card Number</label> <input type="text"
+													pattern="[0-9]{16}" class="form-control" name="DebitCardNo" />
+											</div>
+										</div>
+										<div class="col">
+											<div class="form-group">
+												<label>Expiry Date</label> <input type="month"
+													class="form-control" placeholder="Expiry Date"
+													min="${ExpMin}" name="DebitCardExp" />
+											</div>
+										</div>
+										<div class="col">
+											<div class="form-group">
+												<label>CVV</label> <input type="number" maxlength="3"
+													class="form-control" placeholder="CVV" name="DebitCardCVV" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div id="cashondelivery-container" style="display: none;"></div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<button type="submit" class="btn btn-success">Place
+									Order</button>
+							</div>
+						</div>
+					</form:form>
 				</div>
 			</div>
-		</form:form>
+		</div>
 	</div>
 </body>
 </html>

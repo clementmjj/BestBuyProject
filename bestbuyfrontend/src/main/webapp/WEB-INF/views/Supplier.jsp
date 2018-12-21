@@ -1,11 +1,26 @@
 <%@include file="Header.jsp"%>
-
 <html>
 <head>
 <title>Manage Suppliers</title>
+<c:if test="${errors==true}">
+	<script>
+		function showAddSupplierWithErrors() {
+			document.getElementById("btn-addSupplier").click();
+		}
+		window.onload = showAddSupplierWithErrors;
+	</script>
+</c:if>
 </head>
 <body class="bg-light">
 	<div class="container-fluid" id="body-container">
+		<c:if test="${deleteError==true}">
+			<div class="alert alert-warning alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Delete Error!</strong> 1 or more products are supplied by
+				this supplier. Please delete all the products supplied by this
+				supplier and try again.
+			</div>
+		</c:if>
 		<div class="modal fade" id="myModal">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -16,28 +31,18 @@
 					<div class="modal-body">
 						<form:form action="${pageContext.request.contextPath}/addSupplier"
 							modelAttribute="addSupplier" method="post">
-
-							<div class="row">
-								<div class="col">
-									<p>Supplier Name</p>
-								</div>
-								<div class="col">
-									<form:input path="supplierName" class="form-control" />
-								</div>
+							<div class="form-group">
+								<label>Supplier Name</label>
+								<form:input path="supplierName" class="form-control" />
+								<form:errors class="error-text" path="supplierName" />
 							</div>
-							<div class="row">
-								<div class="col">
-									<p>Supplier Address</p>
-								</div>
-								<div class="col">
-									<form:textarea path="supplierAddress" class="form-control" />
-								</div>
+							<div class="form-group">
+								<label>Supplier Address</label>
+								<form:textarea path="supplierAddress" class="form-control" />
+								<form:errors class="error-text" path="supplierAddress" />
 							</div>
-							<div class="row">
-								<div class="col">
-									<input type="submit" value="Add" class="btn btn-success form-control" />
-								</div>
-							</div>
+							<input type="submit" value="Add"
+								class="btn btn-success form-control" />
 						</form:form>
 					</div>
 					<div class="modal-footer">
@@ -52,8 +57,8 @@
 				<h3>Supplier list</h3>
 			</div>
 			<div>
-				<button type="button" class="btn btn-primary" data-toggle="modal"
-					data-target="#myModal">
+				<button id="btn-addSupplier" type="button" class="btn btn-primary"
+					data-toggle="modal" data-target="#myModal">
 					<i class="fa fa-plus"></i> Add Supplier
 				</button>
 			</div>

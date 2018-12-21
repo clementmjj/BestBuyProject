@@ -1,4 +1,4 @@
-category validation not working, continue with supplier.
+category validation not working, cannot add category.check.
 
 Pending tasks
 =============

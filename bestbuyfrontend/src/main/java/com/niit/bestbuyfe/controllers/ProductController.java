@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -53,7 +54,7 @@ public class ProductController
 	@RequestMapping(value="/product")
 	public String showProduct(Model m)
 	{
-		List<Product> productList=productDAO.listProducts();
+		List<Product> productList = productDAO.listProducts();
 		m.addAttribute("productList",productList);
 		m.addAttribute("addProduct",new Product());
 		return "Product";
@@ -75,12 +76,6 @@ public class ProductController
 		m.addAttribute("product",product);
 		return "ProductDisplay";
 	}
-	
-	@ModelAttribute("productList")
-	public List<Product> getProductList()
-	{
-		return productDAO.listProducts();
-	}	
 	
 	@ModelAttribute("categoryListMap")
 	public Map<String,String> getCategoryList()
@@ -128,7 +123,6 @@ public class ProductController
 		{
 			if(file.isEmpty())
 			{
-				System.out.println("no file");
 				result.addError(new FieldError("imageInput","image", "Please select a valid image"));
 			}
 			m.addAttribute("errors",true);
@@ -221,7 +215,12 @@ public class ProductController
 	@RequestMapping(value="/allproducts")
 	public String showAllProducts(Model m, HttpServletRequest request) throws UnsupportedEncodingException
 	{
-		List<Product> productList=productDAO.listProducts();
+		List<Product> productList=new LinkedList<Product>();
+		for(Product product : productDAO.listProducts())
+		{
+			if(product.getStock()>0)
+				productList.add(product);
+		}
 		
 		//set products' image extension
 		for(Product product : productList)

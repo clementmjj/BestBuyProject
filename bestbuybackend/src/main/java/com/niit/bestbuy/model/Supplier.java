@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table
@@ -12,7 +14,14 @@ public class Supplier
 	@Id
 	@GeneratedValue
 	int supplierId;
-	String supplierName, supplierAddress;
+	
+	@NotBlank(message="Must not be blank")
+	@Size(min=4, max=12, message="Supplier name must be between 4 to 12 characters")
+	String supplierName;
+	
+	@NotBlank(message="Must not be blank")
+	@Size(min=1, max=250, message="Supplier address must be between 1 to 250 characters")
+	String supplierAddress;
 	
 	public int getSupplierId() {
 		return supplierId;
@@ -32,6 +41,4 @@ public class Supplier
 	public void setSupplierAddress(String supplierAddress) {
 		this.supplierAddress = supplierAddress;
 	}
-	
-	
 }

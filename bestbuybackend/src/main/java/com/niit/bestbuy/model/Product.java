@@ -9,6 +9,7 @@ import javax.validation.constraints.Min;
 //import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -27,11 +28,9 @@ public class Product
 	@Positive (message="Please select a category")
 	private int categoryId;
 	
-	@NotBlank(message="Must not be blank")
-	@Min(value=1, message="Stock must be atleast 1")
+	@PositiveOrZero(message="Please enter a positive number")
 	private int stock;
 	
-	@NotBlank(message="Must not be blank")
 	@Min(value=1, message="Price must be atleast Rs.1")
 	private double price;
 	

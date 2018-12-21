@@ -5,7 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +46,13 @@ public class OrderController
 	@RequestMapping(value="/showOrder/{username}")
 	public String showOrder(@PathVariable("username") String username,@RequestParam Map<String, String> params, Model m)
 	{
+		Calendar calendar=Calendar.getInstance();
+		calendar.setTime(new Date());
+		calendar.add(Calendar.MONTH, 1);
+		String pattern = "yyyy-MM";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		m.addAttribute("ExpMin",simpleDateFormat.format(calendar.getTime()));
+		
 		//updating quantity in db
 		List<CartItem> cartItemList=cartDAO.listCartItemsByUsername(username);
 		for(CartItem ci : cartItemList)
@@ -71,14 +81,106 @@ public class OrderController
 	}
 	
 	@RequestMapping(value="/confirmOrder")
-	public String createOrder(Model m, @ModelAttribute("orderDetail") OrderDetail order,HttpSession session) throws IOException
+	public String createOrder(Model m, @ModelAttribute("orderDetail") OrderDetail order,HttpSession session,
+			@RequestParam("CreditCardNo") String creditCardNo, @RequestParam("CreditCardExp") String creditCardExp, 
+			@RequestParam("CreditCardCVV") String creditCardCVV, @RequestParam("DebitCardNo") String debitCardNo, 
+			@RequestParam("DebitCardExp") String debitCardExp, @RequestParam("DebitCardCVV") String debitCardCVV) throws IOException
 	{
+		List<String> errorsList=new LinkedList<String>();
+		if(order.getPaymentMode().equals("Credit Card"))
+		{
+			//credit card no
+			if(creditCardNo.trim().equals(""))
+				errorsList.add("Credit card number must not be blank");
+			else
+			{
+				if(creditCardNo.length()==16)
+				{
+					for(char c : creditCardNo.toCharArray())
+					{
+						try {
+							Character.getNumericValue(c);
+						}
+						catch(Exception e) {
+							errorsList.add("Please enter a valid credit card number");
+						}
+					}
+				}
+				else
+					errorsList.add("Credit card number must be 16 digits");
+			}
+			
+			//Exp date
+			if(creditCardExp.isEmpty())
+				errorsList.add("Please select the expiry date of the card");
+			
+			//CVV
+			try {
+				Integer.parseInt(creditCardCVV);
+			}
+			catch (Exception e)
+			{
+				errorsList.add("Please enter a valid CVV number");
+			}
+		}
+		else if(order.getPaymentMode().equals("Debit Card"))
+		{
+			//debit card no
+			if(debitCardNo.trim().equals(""))
+				errorsList.add("Debit card number must not be blank");
+			else
+			{
+				if(debitCardNo.length()==16)
+				{
+					for(char c : debitCardNo.toCharArray())
+					{
+						try {
+							Character.getNumericValue(c);
+						}
+						catch(Exception e) {
+							errorsList.add("Please enter a valid debit card number");
+						}
+					}
+				}
+				else
+					errorsList.add("Debit card number must be 16 digits");
+			}
+			
+			//Exp date
+			if(debitCardExp.isEmpty())
+				errorsList.add("Please select the expiry date of the card");
+			
+			//CVV
+			try {
+				Integer.parseInt(debitCardCVV);
+			}
+			catch (Exception e)
+			{
+				errorsList.add("Please enter a valid CVV number");
+			}
+		}
+		else //cash on delivery
+		{
+			
+		}
+		if(!errorsList.isEmpty())
+		{
+			Calendar calendar=Calendar.getInstance();
+			calendar.setTime(new Date());
+			calendar.add(Calendar.MONTH, 1);
+			String pattern = "yyyy-MM";
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+			m.addAttribute("ExpMin",simpleDateFormat.format(calendar.getTime()));
+			
+			m.addAttribute("errorsList",errorsList);
+			return "Order";
+		}
 		List<CartItem> cartItemList=cartDAO.listCartItemsByUsername(session.getAttribute("username").toString());
 		double grandTotal=0;
 		for(CartItem ci : cartItemList)
 		{
 			Product product=productDAO.getProduct(ci.getProductId());
-			//setting the price and product name so that their respective fields can be populated in reciept
+			//setting the price and product name so that their respective fields can be populated in receipt
 			ci.setProductName(product.getProductName());
 			ci.setPrice(product.getPrice());
 			

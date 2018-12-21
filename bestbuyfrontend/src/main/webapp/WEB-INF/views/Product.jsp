@@ -24,86 +24,66 @@
 						<form:form action="${pageContext.request.contextPath}/addProduct"
 							modelAttribute="addProduct" enctype="multipart/form-data"
 							method="post">
-							<div class="row">
-								<div class="col">
-									<p>Product Name</p>
-								</div>
-								<div class="col">
-									<form:input path="productName" class="form-control" />
-									<form:errors class="error-text" path="productName" />
-								</div>
+							<div class="form-group">
+								<label>Product Name</label>
+								<form:input path="productName" class="form-control" />
+								<form:errors class="error-text" path="productName" />
+							</div>
+							<div class="form-group">
+								<label>Product Description</label>
+								<form:textarea path="productDesc" class="form-control" />
+								<form:errors class="error-text" path="productDesc" />
 							</div>
 							<div class="row">
 								<div class="col">
-									<p>Product Description</p>
-								</div>
-								<div class="col">
-									<form:textarea path="productDesc" class="form-control" />
-									<form:errors class="error-text" path="productDesc" />
-								</div>
-							</div>
-							<div class="row">
-								<div class="col">
-									<p>Supplier</p>
-								</div>
-								<div class="col">
-									<form:select path="supplierId" class="form-control">
-										<form:option value="0">--select--</form:option>
-										<form:options items="${supplierListMap}" />
-									</form:select>
-									<form:errors class="error-text" path="supplierId" />
-								</div>
-							</div>
-							<div class="row">
-								<div class="col">
-									<p>Category</p>
-								</div>
-								<div class="col">
-									<form:select path="categoryId" class="form-control">
-										<form:option value="0">--select--</form:option>
-										<form:options items="${categoryListMap}" />
-									</form:select>
-									<form:errors class="error-text" path="categoryId" />
-								</div>
-							</div>
-							<div class="row">
-								<div class="col">
-									<p>Price</p>
-
-								</div>
-								<div class="col">
-									<form:input type="number" path="price" class="form-control" />
-									<form:errors class="error-text" path="price" />
-								</div>
-							</div>
-							<div class="row">
-								<div class="col">
-									<p>Stock</p>
-								</div>
-								<div class="col">
-									<form:input type="number" path="stock" class="form-control" />
-									<form:errors class="error-text" path="stock" />
-								</div>
-							</div>
-							<div class="row">
-								<div class="col">
-									<p>Select Image</p>
-								</div>
-								<div class="col">
-									<div class="custom-file">
-										<form:input type="file" path="image" class="custom-file-input" />
-										<label class="custom-file-label" for="customFile">Choose
-											file</label>
+									<div class="form-group">
+										<label>Supplier</label>
+										<form:select path="supplierId" class="form-control">
+											<form:option value="0">--select--</form:option>
+											<form:options items="${supplierListMap}" />
+										</form:select>
+										<form:errors class="error-text" path="supplierId" />
 									</div>
-									<form:errors class="error-text" path="image" />
+								</div>
+								<div class="col">
+									<div class="form-group">
+										<label>Category</label>
+										<form:select path="categoryId" class="form-control">
+											<form:option value="0">--select--</form:option>
+											<form:options items="${categoryListMap}" />
+										</form:select>
+										<form:errors class="error-text" path="categoryId" />
+									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col">
-									<input type="submit" value="Add"
-										class="form-control btn btn-success" />
+									<div class="form-group">
+										<label>Price</label>
+										<form:input type="number" path="price" class="form-control" />
+										<form:errors class="error-text" path="price" />
+									</div>
+								</div>
+								<div class="col">
+									<div class="form-group">
+										<label>Stock</label>
+										<form:input type="number" path="stock" class="form-control" />
+										<form:errors class="error-text" path="stock" />
+									</div>
 								</div>
 							</div>
+							<div class="form-group">
+								<label>Select Image</label>
+								<div class="custom-file">
+									<form:input type="file" path="image" class="custom-file-input" />
+									<label class="custom-file-label" for="customFile">Choose
+										file</label>
+								</div>
+								<form:errors class="error-text" path="image" />
+							</div>
+							<input type="submit" value="Add"
+								class="form-control btn btn-success" />
+
 						</form:form>
 					</div>
 					<div class="modal-footer">

@@ -14,13 +14,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.niit.bestbuy.dao.CategoryDAO;
+import com.niit.bestbuy.dao.ProductDAO;
 import com.niit.bestbuy.model.Category;
+import com.niit.bestbuy.model.Product;
 
 @Controller
 public class CategoryController 
 {
 	@Autowired
 	CategoryDAO categoryDAO;
+	@Autowired
+	ProductDAO productDAO;
 	
 	@RequestMapping(value="/category")
 	public String showCategory(Model m)
@@ -54,7 +58,20 @@ public class CategoryController
 	public String deleteCategory(@PathVariable("categoryId")int categoryId,Model m)
 	{
 		Category category=categoryDAO.getCategory(categoryId);
-		categoryDAO.delete(category);
+		boolean productsExistWithSameCategory=false;
+		for(Product product : productDAO.listProducts())
+		{
+			if(product.getCategoryId()==categoryId)
+			{
+				productsExistWithSameCategory=true;
+				break;
+			}
+		}
+		if(productsExistWithSameCategory)
+			m.addAttribute("deleteError",true);
+		else
+			categoryDAO.delete(category);
+		
 		
 		List<Category> categoryList=categoryDAO.listCategories();
 		m.addAttribute("categoryList", categoryList); 

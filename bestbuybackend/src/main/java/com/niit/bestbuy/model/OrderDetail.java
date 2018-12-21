@@ -13,11 +13,11 @@ public class OrderDetail
 {
 	@Id
 	@GeneratedValue
-	int orderId;
+	private int orderId;
 	
-	String username, paymentMode;
-	Date orderDate;
-	double totalAmount;
+	private String username, paymentMode;
+	private Date orderDate;
+	private double totalAmount;
 	
 	public int getOrderId() {
 		return orderId;

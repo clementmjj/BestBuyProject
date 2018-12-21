@@ -13,6 +13,14 @@
 </head>
 <body class="bg-light">
 	<div class="container-fluid" id="body-container">
+		<c:if test="${deleteError==true}">
+			<div class="alert alert-warning alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Delete Error!</strong> 1 or more products fall under this
+				category. Please delete all the products that fall under this
+				category and try again.
+			</div>
+		</c:if>
 		<div class="modal fade" id="myModal">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -22,32 +30,18 @@
 					</div>
 					<div class="modal-body">
 						<form action="<c:url value="/addCategory"/>" method="post">
-							<div class="row">
-								<div class="col">
-									<p>Category Name</p>
-								</div>
-								<div class="col">
-									<input type="text" id="categoryName" name="categoryName"
-										class="form-control" />
-										<form:errors class="error-text" path="categoryName" />
-								</div>
+							<div class="form-group">
+								<label>Category Name</label> <input type="text"
+									id="categoryName" name="categoryName" class="form-control" />
+								<form:errors class="error-text" path="categoryName" />
 							</div>
-							<div class="row">
-								<div class="col">
-									<p>Category Desc</p>
-								</div>
-								<div class="col">
-									<input type="text" id="categoryDesc" name="categoryDesc"
-										class="form-control" />
-										<form:errors class="error-text" path="categoryDesc" />
-								</div>
+							<div class="form-group">
+								<label>Category Description</label> <input type="text"
+									id="categoryDesc" name="categoryDesc" class="form-control" />
+								<form:errors class="error-text" path="categoryDesc" />
 							</div>
-							<div class="row">
-								<div class="col">
-									<input type="submit" value="Add"
-										class="form-control btn btn-success" />
-								</div>
-							</div>
+							<input type="submit" value="Add"
+								class="form-control btn btn-success" />
 						</form>
 					</div>
 					<div class="modal-footer">
@@ -62,8 +56,8 @@
 				<h3>Category list</h3>
 			</div>
 			<div>
-				<button id="btn-addCategory" type="button" class="btn btn-primary" data-toggle="modal"
-					data-target="#myModal">
+				<button id="btn-addCategory" type="button" class="btn btn-primary"
+					data-toggle="modal" data-target="#myModal">
 					<i class="fa fa-plus"></i> Add Category
 				</button>
 			</div>
@@ -86,7 +80,8 @@
 						<td>${category.categoryDesc}</td>
 						<td><a class="link-default"
 							href="<c:url value="/editCategory/${category.categoryId}"/>"><i
-								data-toggle="tooltip" title="Edit" class="fa fa-pencil"></i></a> | <a class="link-default"
+								data-toggle="tooltip" title="Edit" class="fa fa-pencil"></i></a> | <a
+							class="link-default"
 							href="<c:url value="/deleteCategory/${category.categoryId}"/>"><i
 								data-toggle="tooltip" title="Delete" class="fa fa-trash-o"></i></a>
 						</td>

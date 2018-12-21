@@ -24,3 +24,31 @@ function updatePrice(elementId)
 	
 	document.getElementById("grandTotal").innerHTML=grandTotal;
 }
+
+function showPaymentForm()
+{
+  var selectedOption=document.getElementById("payment-select").value;
+  if(selectedOption=="Credit Card")
+  {
+    document.getElementById("debitcard-container").style.display="none";
+    document.getElementById("cashondelivery-container").style.display="none";
+    document.getElementById("creditcard-container").style.display="block";
+  }
+  else if(selectedOption=="Debit Card")
+  {
+    document.getElementById("cashondelivery-container").style.display="none";
+    document.getElementById("creditcard-container").style.display="none";
+    document.getElementById("debitcard-container").style.display="block";
+  }
+  else
+  {
+    document.getElementById("debitcard-container").style.display="none";
+    document.getElementById("creditcard-container").style.display="none";
+    document.getElementById("cashondelivery-container").style.display="block";
+  }
+}
+
+function closeErrorContainer()
+{
+	  document.getElementById("error-box-close-button").click();
+}

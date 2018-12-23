@@ -14,7 +14,7 @@ import com.niit.bestbuy.model.Category;
 public class PageController 
 {	
 	@Autowired
-	CategoryDAO categoryDAO;
+	private CategoryDAO categoryDAO;
 	
 	@ModelAttribute("categoryList")
 	public List<Category> getCategoryList()
@@ -29,9 +29,9 @@ public class PageController
 		return "AboutUs";
 	}
 	
-	@RequestMapping(value="/test")
+	@RequestMapping(value="/adminHome")
 	public String showTest()
 	{
-		return "test";
+		return "AdminHome";
 	}
 }

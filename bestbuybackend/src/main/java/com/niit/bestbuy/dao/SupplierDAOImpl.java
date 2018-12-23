@@ -17,7 +17,7 @@ public class SupplierDAOImpl implements SupplierDAO
 {
 
 	@Autowired
-	SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 	
 	public boolean add(Supplier supplier) 
 	{
@@ -78,5 +78,4 @@ public class SupplierDAOImpl implements SupplierDAO
 		session.close();
 		return supplier;
 	}
-
 }

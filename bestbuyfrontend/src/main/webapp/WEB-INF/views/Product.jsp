@@ -83,7 +83,6 @@
 							</div>
 							<input type="submit" value="Add"
 								class="form-control btn btn-success" />
-
 						</form:form>
 					</div>
 					<div class="modal-footer">
@@ -106,7 +105,7 @@
 		</div>
 
 		<div class="table-responsive-sm">
-			<table class="table table-hover">
+			<table class="table table-hover table-sm">
 				<thead class="thead-light">
 					<tr>
 						<th>Product Id</th>

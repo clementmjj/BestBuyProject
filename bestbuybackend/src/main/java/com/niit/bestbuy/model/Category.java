@@ -13,16 +13,13 @@ public class Category
 {
 	@Id
 	@GeneratedValue
-	private int categoryId;
-	
+	private int categoryId;	
 	@NotBlank(message="Must not be blank")
-	@Size(min=5, max=15, message="Category name must be between 5 to 15 characters")
-	private String categoryName;
-	
+	@Size(min=1, max=20, message="Category name must be between 1 to 20 characters")
+	private String categoryName;	
 	@NotBlank(message="Must not be blank")
-	@Size(min=5, max=200, message="Category description must be between 5 to 200 characters")
-	private String categoryDesc;
-	
+	@Size(min=1, max=200, message="Category description must be between 1 to 200 characters")
+	private String categoryDesc;	
 	
 	public int getCategoryId() {
 		return categoryId;
@@ -42,5 +39,4 @@ public class Category
 	public void setCategoryDesc(String categoryDesc) {
 		this.categoryDesc = categoryDesc;
 	}
-	
 }

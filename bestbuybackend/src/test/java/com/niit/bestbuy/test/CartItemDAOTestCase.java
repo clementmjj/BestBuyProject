@@ -24,6 +24,7 @@ public class CartItemDAOTestCase
 		context.scan("com.niit");
 		context.refresh();
 		cartDAO=(CartItemDAO)context.getBean("cartDAO");
+		context.close();
 	}
 	@Ignore
 	@Test
@@ -31,9 +32,9 @@ public class CartItemDAOTestCase
 	{
 		CartItem cart=new CartItem();
 		cart.setProductId(99);
-		cart.setProductName("curtain");
-		cart.setPrice(300);
-		cart.setUsername("sunil");
+		cart.setProductName("Prod name");
+		cart.setPrice(333);
+		cart.setUsername("Arun");
 		cart.setStatus("N");
 		assertTrue("Problem adding cart item",cartDAO.addToCart(cart));
 	}
@@ -60,8 +61,7 @@ public class CartItemDAOTestCase
 	public void listCartByUnameTest()
 	{
 		List<CartItem> cartList=cartDAO.listCartItemsByUsername("clement");
-		assertTrue("Problem in listing cart items",cartList.size()>0);
-		
+		assertTrue("Problem in listing cart items",cartList.size()>0);		
 		for(CartItem c : cartList)
 		{
 			System.out.print("Cart Id: "+c.getCartItemId()+"\t");
@@ -75,8 +75,7 @@ public class CartItemDAOTestCase
 	public void listAllCartItemsTest()
 	{
 		List<CartItem> cartList=cartDAO.listAllCartItems();
-		assertTrue("Problem in listing cart items",cartList.size()>0);
-		
+		assertTrue("Problem in listing cart items",cartList.size()>0);		
 		for(CartItem c : cartList)
 		{
 			System.out.print("Cart Id: "+c.getCartItemId()+"\t");

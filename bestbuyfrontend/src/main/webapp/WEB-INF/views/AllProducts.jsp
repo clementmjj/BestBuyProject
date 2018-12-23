@@ -5,32 +5,25 @@
 </head>
 <body class="bg-light">
 	<div class="container-fluid" id="body-container">
-	<h3>All Products</h3>
-		<div class="row">
+		<h3>All Products</h3>
+		<div class="d-flex flex-wrap justify-content-center">
 			<c:forEach items="${productList}" var="product">
-				<div class="col thumbnail">
-					<div class="card">
-						<a href="<c:url value="/productDisplay/${product.productId}"/>"><img
-							class="card-img-top"
+				<div class="flex-fill m-5" style="max-width: 200px;">
+					<div class="product-thumbnail-container mb-2">
+						<a href="<c:url value="/productDisplay/${product.productId}"/>">
+							<img class="product-thumbnail img-thumbnail"
 							src="${pageContext.request.contextPath}/resources/images/ProductImages/${product.productId}${product.imageExt}"
-							alt="${product.productName}"></a>
-						<div class="card-body">
-							<h5 class="card-title">
-								<a href="<c:url value="/productDisplay/${product.productId}"/>">${product.productName}</a>
-							</h5>
-							<h6 class="card-text">
-								<a href="<c:url value="/productDisplay/${product.productId}"/>"
-									class="">Rs.${product.price}/-</a>
-							</h6>
-
-						</div>
+							alt="${product.productName}">
+						</a>
 					</div>
+					<a class="product-container-pName"
+						href="<c:url value="/productDisplay/${product.productId}"/>"><h6>${product.productName}</h6></a>
+					<a class="product-container-pPrice"
+						href="<c:url value="/productDisplay/${product.productId}"/>"><h6>Rs.${product.price}/-</h6></a>
 				</div>
 			</c:forEach>
 		</div>
 	</div>
-
-
 </body>
 </html>
 <%@include file="Footer.jsp"%>

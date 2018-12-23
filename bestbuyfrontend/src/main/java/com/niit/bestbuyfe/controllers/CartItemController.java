@@ -23,9 +23,9 @@ import com.niit.bestbuy.model.Product;
 public class CartItemController 
 {
 	@Autowired
-	CartItemDAO cartDAO;
+	private CartItemDAO cartDAO;
 	@Autowired
-	ProductDAO productDAO;
+	private ProductDAO productDAO;
 	
 	public void showCartItems(Model m, HttpServletRequest request, HttpSession session) throws UnsupportedEncodingException
 	{
@@ -59,7 +59,8 @@ public class CartItemController
 	}
 	
 	@RequestMapping(value="/addtocart/{productId}")
-	public String addToCart(@PathVariable("productId") int productId, Model m, HttpServletRequest request, HttpSession session) throws UnsupportedEncodingException
+	public String addToCart(@PathVariable("productId") int productId, Model m, HttpServletRequest request,
+			HttpSession session) throws UnsupportedEncodingException
 	{
 		List<CartItem> cartItemList=cartDAO.listCartItemsByUsername(session.getAttribute("username").toString());
 		boolean isItemInCart=false;
@@ -94,7 +95,6 @@ public class CartItemController
 	{
 		CartItem cartItem=cartDAO.getCartItem(cartItemId);
 		cartDAO.deleteFromCart(cartItem);
-		
 		showCartItems(m, request,session);
 		return "Cart";
 	}
@@ -104,11 +104,8 @@ public class CartItemController
 	{
 		CartItem cartItem=cartDAO.getCartItem(cartItemId);
 		cartItem.setQuantity(quantity);
-		cartDAO.updateCartItem(cartItem);
-		
+		cartDAO.updateCartItem(cartItem);		
 		showCartItems(m, request,session);
 		return "Cart";
 	}
-	
-	
 }

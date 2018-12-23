@@ -21,7 +21,9 @@ public class UserDAOTestCase
 		context.scan("com.niit");
 		context.refresh();
 		userDAO=(UserDAO)context.getBean("userDAO");
+		context.close();
 	}
+	
 	@Ignore
 	@Test
 	public void registerUserTest()

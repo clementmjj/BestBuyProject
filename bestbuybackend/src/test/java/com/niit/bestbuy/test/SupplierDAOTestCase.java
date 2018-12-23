@@ -23,6 +23,7 @@ public class SupplierDAOTestCase
 		context.scan("com.niit");
 		context.refresh();
 		supplierDAO=(SupplierDAO)context.getBean("supplierDAO");
+		context.close();
 	}
 	
 	@Ignore
@@ -30,10 +31,9 @@ public class SupplierDAOTestCase
 	public void addSupplierTest()
 	{
 		Supplier supplier=new Supplier();
-		supplier.setSupplierName("ddd");
-		supplier.setSupplierAddress("ssssss");
+		supplier.setSupplierName("ABC Traders");
+		supplier.setSupplierAddress("Mumbai");
 		assertTrue("Problem adding supplier",supplierDAO.add(supplier));
-		assertTrue("Problem deleting supplier",supplierDAO.delete(supplier));
 	}
 	
 	@Ignore
@@ -58,8 +58,7 @@ public class SupplierDAOTestCase
 	public void listSuppliersTest()
 	{
 		List<Supplier> supplierList=supplierDAO.listSuppliers();
-		assertTrue("Problem listing suppliers.", supplierList.size()>0);
-		
+		assertTrue("Problem listing suppliers.", supplierList.size()>0);		
 		for(Supplier s : supplierList)
 		{
 			System.out.print("Supplier Id: "+s.getSupplierId()+"\t");

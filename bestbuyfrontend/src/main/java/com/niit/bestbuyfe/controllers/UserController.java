@@ -7,24 +7,34 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.niit.bestbuy.dao.ProductDAO;
+import com.niit.bestbuy.dao.UserDAO;
 import com.niit.bestbuy.model.Product;
+import com.niit.bestbuy.model.User;
 
 @Controller
 public class UserController 
 {
 	@Autowired
-	ProductDAO productDAO;
+	private ProductDAO productDAO;
+	@Autowired
+	private UserDAO userDAO;
 	
 	public static String getLoggedInUser()
 	{
@@ -93,11 +103,44 @@ public class UserController
 					}
 				}
 				m.addAttribute("productList", productList);
-				page="Home";
+				page="AllProducts";
 				session.setAttribute("loggedIn", loggedIn);
 				session.setAttribute("username", username);
 			}
 		}
 		return page;
+	}
+	
+	@RequestMapping(value="/register")
+	public String showRegister(Model m)
+	{
+		m.addAttribute("addUser", new User());
+		return "Register";
+	}
+	
+	@RequestMapping(value="/addUser", method=RequestMethod.POST)
+	public String addUser(@ModelAttribute("addUser")@Valid User user, BindingResult result, Model m)
+	{
+		if(result.hasErrors())
+		{
+			return "Register";
+		}
+		else
+		{
+			user.setEnabled(true);
+			user.setRole("ROLE_USER");
+			try 
+			{
+				userDAO.registerUser(user);
+			} 
+			catch (DataIntegrityViolationException e) 
+			{
+				System.out.println("in catch");
+				result.addError(new FieldError("usernameField", "username", "Username exists"));
+				return "Register";
+			}
+		}
+		m.addAttribute("registerSuccess",true);
+		return "Login";
 	}
 }

@@ -9,76 +9,60 @@
 		<form:form action="${pageContext.request.contextPath}/updateProduct"
 			modelAttribute="updateProduct">
 			<div class="row">
-				<div class="col-sm-2">
-					<p>Product Id</p>
+				<div class="col">
+					<div class="form-group">
+						<label>Product Id</label>
+						<form:input path="productId" value="${productId}" readonly="true"
+							class="form-control" />
+					</div>
 				</div>
-				<div class="col-sm-10">
-					<form:input path="productId" value="${productId}" readonly="true"
-						class="form-control" />
+				<div class="col">
+					<div class="form-group">
+						<label>Supplier Id</label>
+						<form:input path="supplierId" value="${supplierId}"
+							readonly="true" class="form-control" />
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-2">
-					<p>Product Name</p>
-				</div>
-				<div class="col-sm-10">
-					<form:input path="productName" value="${productName}"
-						class="form-control" />
-						<form:errors class="error-text" path="productName" />
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-2">
-					<p>Product Description</p>
-				</div>
-				<div class="col-sm-10">
-					<form:textarea path="productDesc" value="${productDesc}"
-						class="form-control" />
-						<form:errors class="error-text" path="productDesc" />
+				<div class="col">
+					<div class="form-group">
+						<label>Category Id</label>
+						<form:input path="categoryId" value="${categoryId}"
+							readonly="true" class="form-control" />
+					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-sm-2">
-					<p>Supplier Id</p>
-				</div>
-				<div class="col-sm-10">
-					<form:input path="supplierId" value="${supplierId}" readonly="true"
-						class="form-control" />
-				</div>
+			<div class="form-group">
+				<label>Product Name</label>
+				<form:input path="productName" value="${productName}"
+					class="form-control" />
+				<form:errors class="error-text" path="productName" />
 			</div>
-			<div class="row">
-				<div class="col-sm-2">
-					<p>Category Id</p>
-				</div>
-				<div class="col-sm-10">
-					<form:input path="categoryId" value="${categoryId}" readonly="true"
-						class="form-control" />
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-2">
-					<p>Price</p>
-				</div>
-				<div class="col-sm-10">
-					<form:input type="number" path="price" value="${price}" class="form-control" />
-					<form:errors class="error-text" path="price" />
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-2">
-					<p>Stock</p>
-				</div>
-				<div class="col-sm-10">
-					<form:input type="number" path="stock" value="${stock}" class="form-control" />
-					<form:errors class="error-text" path="stock" />
-				</div>
+			<div class="form-group">
+				<label>Product Description</label>
+				<form:textarea path="productDesc" value="${productDesc}"
+					class="form-control" />
+				<form:errors class="error-text" path="productDesc" />
 			</div>
 			<div class="row">
 				<div class="col">
-					<input id="btn-updateProduct" type="submit" value="Update Product"
-						class="form-control btn btn-success" />
+					<div class="form-group">
+						<label>Price</label>
+						<form:input type="number" path="price" value="${price}"
+							class="form-control" />
+						<form:errors class="error-text" path="price" />
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-group">
+						<label>Stock</label>
+						<form:input type="number" path="stock" value="${stock}"
+							class="form-control" />
+						<form:errors class="error-text" path="stock" />
+					</div>
 				</div>
 			</div>
+			<input id="btn-updateProduct" type="submit" value="Update Product"
+				class="form-control btn btn-success" />
 		</form:form>
 	</div>
 </body>

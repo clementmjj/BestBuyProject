@@ -13,15 +13,13 @@ public class Supplier
 {
 	@Id
 	@GeneratedValue
-	int supplierId;
-	
+	private int supplierId;	
 	@NotBlank(message="Must not be blank")
-	@Size(min=4, max=12, message="Supplier name must be between 4 to 12 characters")
-	String supplierName;
-	
+	@Size(min=1, max=30, message="Supplier name must be between 1 to 30 characters")
+	private String supplierName;	
 	@NotBlank(message="Must not be blank")
 	@Size(min=1, max=250, message="Supplier address must be between 1 to 250 characters")
-	String supplierAddress;
+	private String supplierAddress;
 	
 	public int getSupplierId() {
 		return supplierId;

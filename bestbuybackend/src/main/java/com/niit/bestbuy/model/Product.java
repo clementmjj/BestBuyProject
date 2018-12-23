@@ -13,6 +13,7 @@ import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 @Entity
 @Table
@@ -20,34 +21,25 @@ public class Product
 {
 	@Id
 	@GeneratedValue
-	private int productId;
-	
+	private int productId;	
 	@Positive (message="Please select a supplier")
-	private int supplierId;
-	
+	private int supplierId;	
 	@Positive (message="Please select a category")
-	private int categoryId;
-	
+	private int categoryId;	
 	@PositiveOrZero(message="Please enter a positive number")
-	private int stock;
-	
+	private int stock;	
 	@Min(value=1, message="Price must be atleast Rs.1")
-	private double price;
-	
+	private double price;	
 	@NotBlank(message="Must not be blank")
-	@Size(min=5, max=50, message="Product name must be between 5 to 50 characters")
-	private String productName;
-	
+	@Size(min=1, max=100, message="Product name must be between 1 to 100 characters")
+	private String productName;	
 	@NotBlank(message="Must not be blank")
-	@Size(min=5, max=500, message="Product description must be between 5 to 500 characters")
-	private String productDesc;
-	
+	@Size(min=1, max=255, message="Product description must be between 1 to 255 characters")
+	private String productDesc;	
 	@Transient
-	private MultipartFile image;
-	
+	private MultipartFile image;	
 	@Transient
-	private String imageExt;
-	
+	private String imageExt;	
 	
 	public MultipartFile getImage() {
 		return image;
@@ -104,6 +96,4 @@ public class Product
 	public void setProductDesc(String productDesc) {
 		this.productDesc = productDesc;
 	}
-	
-	
 }

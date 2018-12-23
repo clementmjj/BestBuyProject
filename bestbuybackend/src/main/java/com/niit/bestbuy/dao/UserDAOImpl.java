@@ -8,8 +8,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.niit.bestbuy.model.Supplier;
 import com.niit.bestbuy.model.User;
 
 @Repository("userDAO")
@@ -64,6 +62,5 @@ public class UserDAOImpl implements UserDAO
 		List<User> userList=query.list();
 		session.close();
 		return userList;
-	}
-	
+	}	
 }

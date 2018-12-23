@@ -33,12 +33,22 @@
 							<div class="form-group">
 								<label>Category Name</label> <input type="text"
 									id="categoryName" name="categoryName" class="form-control" />
-								<form:errors class="error-text" path="categoryName" />
+								<c:if test="${!empty(category_name_errors)}">
+									<p class="error-text">
+										<c:forEach items="${category_name_errors}" var="error">${error}<br>
+										</c:forEach>
+									</p>
+								</c:if>
 							</div>
 							<div class="form-group">
 								<label>Category Description</label> <input type="text"
 									id="categoryDesc" name="categoryDesc" class="form-control" />
-								<form:errors class="error-text" path="categoryDesc" />
+								<c:if test="${!empty(category_desc_errors)}">
+									<p class="error-text">
+										<c:forEach items="${category_desc_errors}" var="error">${error}<br>
+										</c:forEach>
+									</p>
+								</c:if>
 							</div>
 							<input type="submit" value="Add"
 								class="form-control btn btn-success" />
@@ -63,7 +73,7 @@
 			</div>
 		</div>
 		<div class="table-responsive-sm">
-			<table class="table table-hover">
+			<table class="table table-hover table-sm">
 				<thead class="thead-light">
 					<tr>
 						<th>Category ID</th>

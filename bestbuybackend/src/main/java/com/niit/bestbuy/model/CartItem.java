@@ -14,20 +14,17 @@ public class CartItem implements Serializable
 {
 	@Id
 	@GeneratedValue
-	int cartItemId;
-	
-	String username, status;
-	int productId,quantity;
-	
+	private int cartItemId;	
+	private String username, status;
+	private int productId,quantity;	
 	@Transient
-	String imageExt;
+	private String imageExt;
 	@Transient
-	int stock;
+	private int stock;
 	@Transient
-	String productName;
+	private String productName;
 	@Transient
-	double price;
-	
+	private double price;	
 	
 	public String getProductName() {
 		return productName;

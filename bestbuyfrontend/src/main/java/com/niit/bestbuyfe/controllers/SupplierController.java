@@ -23,9 +23,9 @@ import com.niit.bestbuy.model.Supplier;
 public class SupplierController 
 {
 	@Autowired
-	SupplierDAO supplierDAO;
+	private SupplierDAO supplierDAO;
 	@Autowired
-	ProductDAO productDAO;
+	private ProductDAO productDAO;
 	
 	@RequestMapping(value="/supplier")
 	public String showSupplier(Model m)
@@ -50,7 +50,6 @@ public class SupplierController
 			m.addAttribute("supplierList",supplierList);
 			m.addAttribute("addSupplier",new Supplier());
 		}
-		
 		return "Supplier";
 	}
 	

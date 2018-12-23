@@ -21,7 +21,7 @@
 					</thead>
 					<c:if test="${empty(cartItems)}">
 						<tr>
-						<td colspan="5">Your cart is empty</td>
+							<td colspan="5">Your cart is empty</td>
 						</tr>
 					</c:if>
 					<c:forEach items="${cartItems}" var="cartItem" varStatus="loop">
@@ -29,12 +29,12 @@
 							<td>${loop.index+1}.</td>
 							<td>
 								<div class="row">
-									<div class="col-sm-3">
-										<img style="width: 70px;"
+									<div class="col-sm-2" style="max-height: 50px;">
+										<img style="max-height: 100%; max-width: 100%;"
 											src="${pageContext.request.contextPath}/resources/images/ProductImages/${cartItem.productId}${cartItem.imageExt}"
 											alt="${cartItem.productName}" />
 									</div>
-									<div class="col-sm-9">
+									<div class="col-sm-10">
 										<h6>${cartItem.productName}</h6>
 									</div>
 								</div>
@@ -69,7 +69,7 @@
 			</div>
 			<div class="d-flex justify-content-between">
 				<div>
-					<a class="link-default" href="<c:url value="/allproducts"/>">Continue
+					<a class="link-default" href="<c:url value="/home"/>">Continue
 						Shopping</a>
 				</div>
 				<div>
@@ -81,7 +81,6 @@
 				</div>
 			</div>
 		</form>
-
 	</div>
 </body>
 </html>

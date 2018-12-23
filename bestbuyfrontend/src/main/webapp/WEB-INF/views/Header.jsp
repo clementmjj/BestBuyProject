@@ -23,10 +23,24 @@
 <body>
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
 		<!-- Brand -->
-		<a class="navbar-brand" href="/bestbuyfrontend"> <img
-			src="${pageContext.request.contextPath}/resources/themes/theme1/images/logo.png"
-			alt="logo" style="width: 100px;">
-		</a>
+		<c:if test="${sessionScope.role==null}">
+			<a class="navbar-brand" href="/bestbuyfrontend"> <img
+				src="${pageContext.request.contextPath}/resources/themes/theme1/images/logo.png"
+				alt="logo" style="width: 100px;">
+			</a>
+		</c:if>
+		<c:if test="${sessionScope.role=='ROLE_ADMIN'}">
+			<a class="navbar-brand" href="<c:url value="/adminHome"/>"> <img
+				src="${pageContext.request.contextPath}/resources/themes/theme1/images/logo.png"
+				alt="logo" style="width: 100px;">
+			</a>
+		</c:if>
+		<c:if test="${sessionScope.role=='ROLE_USER'}">
+			<a class="navbar-brand" href="<c:url value="/home"/>"> <img
+				src="${pageContext.request.contextPath}/resources/themes/theme1/images/logo.png"
+				alt="logo" style="width: 100px;">
+			</a>
+		</c:if>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#collapsibleNavbar">
 			<span class="navbar-toggler-icon"></span>
@@ -37,18 +51,18 @@
 				<c:if test="${sessionScope.role=='ROLE_ADMIN'}">
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbardrop"
-						data-toggle="dropdown">Manage</a>
+						data-toggle="dropdown"><i class="fa fa-wrench"></i> Manage</a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="<c:url value="/product"/>">Products</a>
 							<a class="dropdown-item" href="<c:url value="/category"/>">Categories</a>
+							<a class="dropdown-item" href="<c:url value="/product"/>">Products</a>
 							<a class="dropdown-item" href="<c:url value="/supplier"/>">Suppliers</a>
 						</div></li>
 				</c:if>
 				<c:if test="${sessionScope.role=='ROLE_USER'}">
 					<li class="nav-item"><a class="nav-link"
-						href="<c:url value="/allproducts"/>">All Products</a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="<c:url value="/viewcart"/>">View Cart</a></li>
+						href="<c:url value="/home"/>"><i class="fa fa-home"
+							aria-hidden="true"></i> Home</a></li>
+
 				</c:if>
 			</ul>
 			<c:if test="${sessionScope.loggedIn}">
@@ -65,6 +79,9 @@
 						<li class="nav-item"><a class="nav-link"
 							href="<c:url value="/myOrders"/>"><i
 								class="fa fa-shopping-bag"></i> My Orders </a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="<c:url value="/viewcart"/>"><i
+								class="fa fa-shopping-cart"></i> My Cart</a></li>
 					</c:if>
 					<li class="nav-item"><a class="nav-link"
 						href="<c:url value="/perform_logout"/>"><i

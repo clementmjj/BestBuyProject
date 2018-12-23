@@ -1,5 +1,0 @@
-category validation not working, cannot add category.check.
-
-Pending tasks
-=============
-add code to delete all cart items associated to a productid if that product is deleted.

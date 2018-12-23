@@ -17,7 +17,7 @@ import com.niit.bestbuy.model.OrderDetail;
 public class OrderDAOImpl implements OrderDAO 
 {
 	@Autowired
-	SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 	
 	@Override
 	public boolean createOrder(OrderDetail order) 

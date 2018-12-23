@@ -26,6 +26,7 @@ public class OrderDAOTestCase
 		context.scan("com.niit");
 		context.refresh();
 		orderDAO=(OrderDAO)context.getBean("orderDAO");
+		context.close();
 	}
 	@Ignore
 	@Test
@@ -46,6 +47,7 @@ public class OrderDAOTestCase
 		assertTrue("Problem in updating Cart item status",orderDAO.updateCartItemStatus("Rohan"));
 		
 	}
+	
 	@Ignore
 	@Test
 	public void listOrdersTest()

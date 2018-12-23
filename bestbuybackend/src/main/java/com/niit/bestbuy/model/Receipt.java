@@ -27,6 +27,4 @@ public class Receipt implements Serializable
 	public void setCartItemsList(List<CartItem> cartItemsList) {
 		this.cartItemsList = cartItemsList;
 	}
-	
-	
 }

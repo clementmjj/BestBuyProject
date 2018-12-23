@@ -16,7 +16,7 @@ import com.niit.bestbuy.model.CartItem;
 public class CartItemDAOImpl implements CartItemDAO 
 {
 	@Autowired
-	SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 	
 	@Override
 	public boolean addToCart(CartItem cartItem) 
@@ -89,5 +89,4 @@ public class CartItemDAOImpl implements CartItemDAO
 		session.close();
 		return cartItemsList;
 	}
-
 }

@@ -22,6 +22,7 @@ public class ProductDAOTestCase
 		context.scan("com.niit");
 		context.refresh();
 		productDAO=(ProductDAO)context.getBean("productDAO");
+		context.close();
 	}
 	@Ignore
 	@Test
@@ -29,8 +30,8 @@ public class ProductDAOTestCase
 	{
 		Product product=new Product();
 		product.setCategoryId(3);
-		product.setProductName("dddd");
-		product.setProductDesc("ffffffffff");
+		product.setProductName("Apple");
+		product.setProductDesc("Fruit");
 		product.setPrice(200);
 		product.setStock(10);
 		product.setSupplierId(1);
@@ -59,8 +60,7 @@ public class ProductDAOTestCase
 	public void listProductsTest()
 	{
 		List<Product> productList=productDAO.listProducts();
-		assertTrue("Problem listing products.", productList.size()>0);
-		
+		assertTrue("Problem listing products.", productList.size()>0);		
 		for(Product p : productList)
 		{
 			System.out.print("Product Id: "+p.getProductId()+"\t");

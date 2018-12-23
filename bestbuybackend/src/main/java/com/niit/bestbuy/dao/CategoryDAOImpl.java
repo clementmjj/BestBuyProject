@@ -17,7 +17,7 @@ import com.niit.bestbuy.model.Category;
 public class CategoryDAOImpl implements CategoryDAO
 {
 	@Autowired
-	SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 
 	@Override
 	public boolean add(Category category) 

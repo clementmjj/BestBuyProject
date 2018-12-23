@@ -16,33 +16,25 @@ public class User
 	@Id
 	@NotBlank(message="Must not be blank")
 	@Size(min=8, max=12, message="Username must be between 8 to 12 characters")
-	private String username;
-	
+	private String username;	
 	@NotBlank(message="Must not be blank")
 	@Size(min=8, max=12, message="Password must be between 8 to 12 characters")
-	private String password;
-	
+	private String password;	
 	@Transient
-	private String confirmPassword;
-	
+	private String confirmPassword;	
 	@NotBlank(message="Must not be blank")
 	@Size(min=1, max=20, message="Full name must be between 1 to 20 characters")
-	private String userFullName;
-	
+	private String userFullName;	
 	@NotBlank(message="Must not be blank")
 	@Size(min=1, max=200, message="Address must be between 1 to 200 characters")
-	private String userAddress;
-	
-	private String role;
-	
+	private String userAddress;	
+	private String role;	
 	@NotBlank(message="Must not be blank")
 	@Email(message="Must be a well-formed email address")
-	private String email;
-	
+	private String email;	
 	@NotBlank(message="Must not be blank")
 	@Pattern(regexp="([0-9]{10})", message="Please enter a 10 digit number")
-	private String mobileNo;
-	
+	private String mobileNo;	
 	private boolean enabled;
 	
 	public String getConfirmPassword() {
@@ -99,5 +91,4 @@ public class User
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-	
 }

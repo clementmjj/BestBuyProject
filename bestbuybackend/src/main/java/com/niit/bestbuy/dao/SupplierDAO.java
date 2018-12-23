@@ -2,7 +2,6 @@ package com.niit.bestbuy.dao;
 
 import java.util.List;
 
-import com.niit.bestbuy.model.Product;
 import com.niit.bestbuy.model.Supplier;
 
 public interface SupplierDAO 

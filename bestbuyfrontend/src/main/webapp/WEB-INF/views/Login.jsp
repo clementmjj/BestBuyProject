@@ -24,6 +24,12 @@
 </head>
 <body class="bg-dark">
 	<div class="container-fluid" id="body-container">
+		<c:if test="${registerSuccess==true}">
+			<div class="alert alert-success alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Registration Successful!</strong> You can login now.
+			</div>
+		</c:if>
 		<div class="d-flex justify-content-center">
 			<div style="text-align: center;">
 				<div class="row">
@@ -56,7 +62,7 @@
 							<div class="row">
 								<div class="col">
 									<input type="submit" value="Login" name="submit"
-										class="form-control btn btn-primary" /> 
+										class="form-control btn btn-primary" />
 								</div>
 							</div>
 						</form>

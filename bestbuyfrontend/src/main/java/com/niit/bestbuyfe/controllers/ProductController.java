@@ -6,14 +6,12 @@ import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-//import javax.validation.Valid;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,21 +33,19 @@ import com.niit.bestbuy.model.CartItem;
 import com.niit.bestbuy.model.Category;
 import com.niit.bestbuy.model.Product;
 import com.niit.bestbuy.model.Supplier;
-import com.niit.bestbuyfe.sort.SortCategoriesByName;
-import com.niit.bestbuyfe.sort.SortSuppliersByName;
 
 
 @Controller
 public class ProductController 
 {
 	@Autowired
-	ProductDAO productDAO;
+	private ProductDAO productDAO;
 	@Autowired
-	CategoryDAO categoryDAO;
+	private CartItemDAO cartDAO;
 	@Autowired
-	SupplierDAO supplierDAO;
+	private CategoryDAO categoryDAO;
 	@Autowired
-	CartItemDAO cartDAO;
+	private SupplierDAO supplierDAO;
 		
 	@RequestMapping(value="/product")
 	public String showProduct(Model m)
@@ -64,7 +60,6 @@ public class ProductController
 	public String showFullProduct(@PathVariable("productId")int productId,Model m, HttpServletRequest request) throws UnsupportedEncodingException
 	{
 		Product product=productDAO.getProduct(productId);		
-		
 		//set product image extension
 		File productImage=getProductImage(productId, request);
 		try {
@@ -72,7 +67,6 @@ public class ProductController
 		} catch (Exception e) {
 			System.out.println("Product "+product.getProductId()+": No image found");
 		}
-		
 		m.addAttribute("product",product);
 		return "ProductDisplay";
 	}
@@ -81,13 +75,11 @@ public class ProductController
 	public Map<String,String> getCategoryList()
 	{
 		List<Category> categoryList=categoryDAO.listCategories();
-		Collections.sort(categoryList, new SortCategoriesByName());
 		LinkedHashMap<String,String> categoryListMap=new LinkedHashMap<String,String>();
 		for(Category c: categoryList)
 		{
 			categoryListMap.put(Integer.toString(c.getCategoryId()), c.getCategoryName());
 		}
-
 		return categoryListMap;
 	}
 	
@@ -95,13 +87,11 @@ public class ProductController
 	public Map<String,String> getSupplierList()
 	{
 		List<Supplier> supplierList=supplierDAO.listSuppliers();
-		Collections.sort(supplierList, new SortSuppliersByName());
 		LinkedHashMap<String,String> supplierListMap=new LinkedHashMap<String,String>();
 		for(Supplier s: supplierList)
 		{
 			supplierListMap.put(Integer.toString(s.getSupplierId()), s.getSupplierName());
 		}
-
 		return supplierListMap;
 	}
 	
@@ -116,43 +106,45 @@ public class ProductController
 	
 	
 	@RequestMapping(value="/addProduct", method=RequestMethod.POST)
-	public String addProduct(@ModelAttribute("addProduct") @Valid Product product, BindingResult result, Model m, HttpServletRequest request)
+	public String addProduct(@ModelAttribute("addProduct") @Valid Product product, BindingResult result, Model m, 
+			HttpServletRequest request)
 	{
 		MultipartFile file=product.getImage();
+		String fileExt=null;
+		if(file.isEmpty())
+			result.addError(new FieldError("imageInput","image", "Please select an image"));
+		else
+		{
+			fileExt=file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+			if(!fileExt.equalsIgnoreCase(".jpg") && !fileExt.equalsIgnoreCase(".jpeg") && !fileExt.equalsIgnoreCase(".png") && !fileExt.equalsIgnoreCase(".bmp"))
+				result.addError(new FieldError("imageInput","image", "Image must be either jpg, jpeg, png or bmp"));
+			if(file.getSize()>1000000)
+				result.addError(new FieldError("imageInput","image", "Image size limit is 1MB"));
+		}
 		if(result.hasErrors())
 		{
-			if(file.isEmpty())
-			{
-				result.addError(new FieldError("imageInput","image", "Please select a valid image"));
-			}
 			m.addAttribute("errors",true);
 			return "Product";
 		}
 		else
 		{	
 			productDAO.add(product);
-			
 			//saving image
-			if(!file.isEmpty())
+			try
 			{
-				String fileExt=file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-				try
-				{
-					byte[] bytes=file.getBytes();
-					Path path=Paths.get(getImagesDir(request)+product.getProductId()+fileExt);
-					Files.write(path, bytes);
-					System.out.println("file uploaded");
-				} 
-				catch (Exception e)
-				{
-					e.printStackTrace();
-				}
+				byte[] bytes=file.getBytes();
+				Path path=Paths.get(getImagesDir(request)+product.getProductId()+fileExt);
+				Files.write(path, bytes);
+				System.out.println("file uploaded");
+			} 
+			catch (Exception e)
+			{
+				e.printStackTrace();
 			}
 			List<Product> productList=productDAO.listProducts();
 			m.addAttribute("productList",productList);
 			m.addAttribute("addProduct",new Product());
 		}
-		
 		return "Product";
 	}
 	
@@ -177,7 +169,7 @@ public class ProductController
 			System.out.println("Product "+productId+": Could not delete image as image was not found.");
 		}
 			catch (Exception e) {
-				System.out.println("Product "+productId+": Could not delete image.");
+				e.printStackTrace();
 		}
 		
 		List<Product> productList=productDAO.listProducts();
@@ -198,9 +190,7 @@ public class ProductController
 	public String updateProduct(@ModelAttribute("updateProduct") @Valid Product product, BindingResult result, Model m)
 	{
 		if(result.hasErrors())
-		{
 			return "UpdateProduct";
-		}
 		else
 		{
 			productDAO.update(product);
@@ -212,7 +202,7 @@ public class ProductController
 		
 	}
 	
-	@RequestMapping(value="/allproducts")
+	@RequestMapping(value="/home")
 	public String showAllProducts(Model m, HttpServletRequest request) throws UnsupportedEncodingException
 	{
 		List<Product> productList=new LinkedList<Product>();

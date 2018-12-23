@@ -53,7 +53,8 @@
 					<c:if test="${errorsList!=null}">
 						<div id="errors-container">
 							<div class="alert alert-danger alert-dismissible">
-								<button type="button" id="error-box-close-button" class="close" data-dismiss="alert">&times;</button>
+								<button type="button" id="error-box-close-button" class="close"
+									data-dismiss="alert">&times;</button>
 								<c:forEach items="${errorsList}" var="error">
 									<strong>Error!</strong> ${error}<br>
 								</c:forEach>
@@ -67,7 +68,8 @@
 							<div class="col">
 								<div class="form-group">
 									<form:select id="payment-select" path="paymentMode"
-										class="form-control" onchange="showPaymentForm(), closeErrorContainer()">
+										class="form-control"
+										onchange="showPaymentForm(), closeErrorContainer()">
 										<form:option value="Credit Card">Credit Card</form:option>
 										<form:option value="Debit Card">Debit Card</form:option>
 										<form:option value="Cash On Delivery">Cash On Delivery</form:option>
@@ -78,8 +80,8 @@
 										<div class="col">
 											<div class="form-group">
 												<label>Credit Card Number</label> <input type="text"
-													class="form-control" pattern="[0-9]{16}" title="Must be 16 digits"
-													name="CreditCardNo" />
+													class="form-control" pattern="[0-9]{16}"
+													title="Must be 16 digits" name="CreditCardNo" />
 											</div>
 										</div>
 										<div class="col">

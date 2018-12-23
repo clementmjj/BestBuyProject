@@ -13,8 +13,7 @@ public class OrderDetail
 {
 	@Id
 	@GeneratedValue
-	private int orderId;
-	
+	private int orderId;	
 	private String username, paymentMode;
 	private Date orderDate;
 	private double totalAmount;
@@ -49,6 +48,4 @@ public class OrderDetail
 	public void setTotalAmount(double totalAmount) {
 		this.totalAmount = totalAmount;
 	}
-	
-	
 }

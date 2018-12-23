@@ -22,9 +22,9 @@ import com.niit.bestbuy.model.Receipt;
 public class ReceiptController 
 {
 	@Autowired
-	OrderDAO orderDAO;
+	private OrderDAO orderDAO;
 	@Autowired
-	UserDAO userDAO;
+	private UserDAO userDAO;
 	
 	@RequestMapping(value="/receipt/{orderId}")
 	public String showReceipt(@PathVariable("orderId")int orderId, HttpSession session, Model m) throws IOException, ClassNotFoundException

@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.niit.bestbuy.model.Product;
 
@@ -16,10 +17,10 @@ import com.niit.bestbuy.model.Product;
 public class ProductDAOImpl implements ProductDAO
 {
 	@Autowired
-	SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 
 	@Override
-	public boolean add(Product product) 
+	public boolean add(Product product)
 	{
 		try
 		{
@@ -78,5 +79,4 @@ public class ProductDAOImpl implements ProductDAO
 		session.close();
 		return product;
 	}
-
 }

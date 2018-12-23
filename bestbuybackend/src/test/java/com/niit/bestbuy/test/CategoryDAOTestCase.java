@@ -23,6 +23,7 @@ public class CategoryDAOTestCase
 		context.scan("com.niit");
 		context.refresh();
 		categoryDAO=(CategoryDAO)context.getBean("categoryDAO");
+		context.close();
 	}
 	@Ignore
 	@Test
@@ -55,8 +56,7 @@ public class CategoryDAOTestCase
 	public void listCategoriesTest()
 	{
 		List<Category> categoryList=categoryDAO.listCategories();
-		assertTrue("Problem in listing categories",categoryList.size()>0);
-		
+		assertTrue("Problem in listing categories",categoryList.size()>0);		
 		for(Category c : categoryList)
 		{
 			System.out.print("Category Id: "+c.getCategoryId()+"\t");

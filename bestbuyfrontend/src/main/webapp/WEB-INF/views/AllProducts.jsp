@@ -8,7 +8,7 @@
 		<h3>All Products</h3>
 		<div class="d-flex flex-wrap justify-content-center">
 			<c:forEach items="${productList}" var="product">
-				<div class="flex-fill m-5" style="max-width: 200px;">
+				<div class="flex-fill m-2 ml-5 mr-5" style="max-width: 200px;">
 					<div class="product-thumbnail-container mb-2">
 						<a href="<c:url value="/productDisplay/${product.productId}"/>">
 							<img class="product-thumbnail img-thumbnail"
@@ -19,7 +19,7 @@
 					<a class="product-container-pName"
 						href="<c:url value="/productDisplay/${product.productId}"/>"><h6>${product.productName}</h6></a>
 					<a class="product-container-pPrice"
-						href="<c:url value="/productDisplay/${product.productId}"/>"><h6>Rs.${product.price}/-</h6></a>
+						href="<c:url value="/productDisplay/${product.productId}"/>"><h6>&#8377;${product.price}/-</h6></a>
 				</div>
 			</c:forEach>
 		</div>

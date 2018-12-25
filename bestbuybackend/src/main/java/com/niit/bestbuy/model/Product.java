@@ -8,12 +8,12 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 //import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 @Entity
 @Table
@@ -25,14 +25,14 @@ public class Product
 	@Positive (message="Please select a supplier")
 	private int supplierId;	
 	@Positive (message="Please select a category")
-	private int categoryId;	
+	private int categoryId;
 	@PositiveOrZero(message="Please enter a positive number")
-	private int stock;	
+	private int stock;
 	@Min(value=1, message="Price must be atleast Rs.1")
-	private double price;	
+	private double price;
 	@NotBlank(message="Must not be blank")
 	@Size(min=1, max=100, message="Product name must be between 1 to 100 characters")
-	private String productName;	
+	private String productName;
 	@NotBlank(message="Must not be blank")
 	@Size(min=1, max=255, message="Product description must be between 1 to 255 characters")
 	private String productDesc;	

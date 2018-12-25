@@ -50,8 +50,7 @@ public class ProductController
 	@RequestMapping(value="/product")
 	public String showProduct(Model m)
 	{
-		List<Product> productList = productDAO.listProducts();
-		m.addAttribute("productList",productList);
+		m.addAttribute("productList",productDAO.listProducts());
 		m.addAttribute("addProduct",new Product());
 		return "Product";
 	}
@@ -61,15 +60,40 @@ public class ProductController
 	{
 		Product product=productDAO.getProduct(productId);		
 		//set product image extension
-		File productImage=getProductImage(productId, request);
 		try {
+			File productImage=getProductImage(productId, request);
 			product.setImageExt(productImage.getName().substring(productImage.getName().lastIndexOf(".")));
 		} catch (Exception e) {
 			System.out.println("Product "+product.getProductId()+": No image found");
 		}
 		m.addAttribute("product",product);
+		//show related products
+		List<Product> relatedProductsList=new LinkedList<Product>();
+		int count=0;
+		for(Product p : productDAO.listProducts())
+		{
+			if(count>4)
+				break;
+			if(p.getProductId()==product.getProductId())
+				continue;
+			if(p.getCategoryId()==product.getCategoryId())
+				{
+					//set product image extension
+					try {
+						File productImage=getProductImage(p.getProductId(), request);
+						p.setImageExt(productImage.getName().substring(productImage.getName().lastIndexOf(".")));
+					} 
+					catch (Exception e) {
+						System.out.println("Related Product "+product.getProductId()+": No image found");
+					}
+					relatedProductsList.add(p);
+					count++;
+				}
+		}
+		m.addAttribute("relatedProductsList", relatedProductsList);
 		return "ProductDisplay";
 	}
+	
 	
 	@ModelAttribute("categoryListMap")
 	public Map<String,String> getCategoryList()
@@ -116,7 +140,8 @@ public class ProductController
 		else
 		{
 			fileExt=file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-			if(!fileExt.equalsIgnoreCase(".jpg") && !fileExt.equalsIgnoreCase(".jpeg") && !fileExt.equalsIgnoreCase(".png") && !fileExt.equalsIgnoreCase(".bmp"))
+			if(!fileExt.equalsIgnoreCase(".jpg") && !fileExt.equalsIgnoreCase(".jpeg") && !fileExt.equalsIgnoreCase(".png") &&
+					!fileExt.equalsIgnoreCase(".bmp"))
 				result.addError(new FieldError("imageInput","image", "Image must be either jpg, jpeg, png or bmp"));
 			if(file.getSize()>1000000)
 				result.addError(new FieldError("imageInput","image", "Image size limit is 1MB"));
@@ -135,14 +160,13 @@ public class ProductController
 				byte[] bytes=file.getBytes();
 				Path path=Paths.get(getImagesDir(request)+product.getProductId()+fileExt);
 				Files.write(path, bytes);
-				System.out.println("file uploaded");
+				System.out.println("image uploaded");
 			} 
 			catch (Exception e)
 			{
 				e.printStackTrace();
 			}
-			List<Product> productList=productDAO.listProducts();
-			m.addAttribute("productList",productList);
+			m.addAttribute("productList",productDAO.listProducts());
 			m.addAttribute("addProduct",new Product());
 		}
 		return "Product";
@@ -172,8 +196,7 @@ public class ProductController
 				e.printStackTrace();
 		}
 		
-		List<Product> productList=productDAO.listProducts();
-		m.addAttribute("productList",productList);
+		m.addAttribute("productList",productDAO.listProducts());
 		m.addAttribute("addProduct",new Product());
 		return "Product";
 	}
@@ -205,24 +228,24 @@ public class ProductController
 	@RequestMapping(value="/home")
 	public String showAllProducts(Model m, HttpServletRequest request) throws UnsupportedEncodingException
 	{
-		List<Product> productList=new LinkedList<Product>();
+		List<Product> productsWithAvailableStock=new LinkedList<Product>();
 		for(Product product : productDAO.listProducts())
 		{
 			if(product.getStock()>0)
-				productList.add(product);
+				productsWithAvailableStock.add(product);
 		}
 		
 		//set products' image extension
-		for(Product product : productList)
+		for(Product product : productsWithAvailableStock)
 		{
-			File productImage=getProductImage(product.getProductId(), request);
 			try {
+				File productImage=getProductImage(product.getProductId(), request);
 				product.setImageExt(productImage.getName().substring(productImage.getName().lastIndexOf(".")));
 			} catch (Exception e) {
 				System.out.println("Product "+product.getProductId()+": No image found");
 			}
 		}
-		m.addAttribute("productList", productList);
+		m.addAttribute("productList", productsWithAvailableStock);
 		return "AllProducts";
 	}
 	

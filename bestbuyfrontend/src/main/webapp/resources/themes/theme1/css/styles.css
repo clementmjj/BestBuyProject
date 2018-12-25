@@ -1,3 +1,7 @@
+body {
+	min-height: 100%;
+}
+
 .navbar-dark .navbar-nav .nav-link, .social-icons a {
 	color: #fff;
 }
@@ -92,20 +96,20 @@
 	font-size: small;
 }
 
-.product-container-pName{
-	color:#000;
+.product-container-pName {
+	color: #000;
 }
 
-.product-container-pName:hover{
-	color:#ff802c;
+.product-container-pName:hover {
+	color: #ff802c;
 	text-decoration: none;
 }
 
-.product-container-pPrice{
-	color:#b70000;
+.product-container-pPrice {
+	color: #b70000;
 }
 
-.product-container-pPrice:hover{
-	color:#ff802c;
+.product-container-pPrice:hover {
+	color: #ff802c;
 	text-decoration: none;
 }

@@ -229,7 +229,7 @@ public class OrderController
 			product.setStock(product.getStock()-ci.getQuantity());
 			productDAO.update(product);
 		}
-		
+		session.setAttribute("cartItemCount", 0);
 		m.addAttribute("itemList", cartItemList);
 		m.addAttribute("order", order);
 		m.addAttribute("user",userDAO.getUser(session.getAttribute("username").toString()));

@@ -85,17 +85,20 @@ public class CartItemController
 			cartItem.setStatus("N");
 			cartItem.setUsername(session.getAttribute("username").toString());
 			cartDAO.addToCart(cartItem);
+			cartItemList.add(cartItem);
 		}
 		showCartItems(m, request,session);
+		session.setAttribute("cartItemCount", cartItemList.size());
 		return "Cart";
 	}
-	
+		
 	@RequestMapping(value="/deletefromcart/{cartItemId}")
 	public String deleteFromCart(@PathVariable("cartItemId") int cartItemId, Model m, HttpServletRequest request, HttpSession session) throws UnsupportedEncodingException
 	{
 		CartItem cartItem=cartDAO.getCartItem(cartItemId);
 		cartDAO.deleteFromCart(cartItem);
-		showCartItems(m, request,session);
+		showCartItems(m, request,session);		
+		session.setAttribute("cartItemCount", cartDAO.listCartItemsByUsername(session.getAttribute("username").toString()).size());
 		return "Cart";
 	}
 	

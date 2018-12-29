@@ -23,8 +23,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.niit.bestbuy.dao.CartItemDAO;
 import com.niit.bestbuy.dao.ProductDAO;
 import com.niit.bestbuy.dao.UserDAO;
+import com.niit.bestbuy.model.CartItem;
 import com.niit.bestbuy.model.Product;
 import com.niit.bestbuy.model.User;
 
@@ -35,6 +37,8 @@ public class UserController
 	private ProductDAO productDAO;
 	@Autowired
 	private UserDAO userDAO;
+	@Autowired
+	private CartItemDAO cartDAO;
 	
 	public static String getLoggedInUser()
 	{
@@ -75,8 +79,7 @@ public class UserController
 		
 		//getting the role of user
 		String username=authentication.getName();
-		Collection<GrantedAuthority> roles=(Collection<GrantedAuthority>)authentication.getAuthorities();
-		
+		Collection<GrantedAuthority> roles=(Collection<GrantedAuthority>)authentication.getAuthorities();		
 		for(GrantedAuthority role : roles)
 		{
 			session.setAttribute("role", role.getAuthority());
@@ -108,6 +111,13 @@ public class UserController
 				session.setAttribute("username", username);
 			}
 		}
+		//getting cart items count
+		int cartItemCount=0;
+		for(CartItem cartItem : cartDAO.listCartItemsByUsername(username))
+		{
+			cartItemCount++;
+		}
+		session.setAttribute("cartItemCount", cartItemCount);
 		return page;
 	}
 	

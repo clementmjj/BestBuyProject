@@ -80,8 +80,11 @@
 							href="<c:url value="/myOrders"/>"><i
 								class="fa fa-shopping-bag"></i> My Orders </a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="<c:url value="/viewcart"/>"><i
-								class="fa fa-shopping-cart"></i> My Cart</a></li>
+							href="<c:url value="/viewcart"/>"> <i
+								class="fa fa-shopping-cart"></i> My Cart
+								<div class="rounded-circle bg-danger"
+									style="display: inline-block; padding: 0 5px;">${sessionScope.cartItemCount}</div></a>
+						</li>
 					</c:if>
 					<li class="nav-item"><a class="nav-link"
 						href="<c:url value="/perform_logout"/>"><i

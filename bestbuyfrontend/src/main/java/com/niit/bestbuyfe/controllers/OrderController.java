@@ -43,6 +43,20 @@ public class OrderController
 	@Autowired
 	private UserDAO userDAO;
 	
+	public List<CartItem> showCartItems(String username, Model m)
+	{
+		List<CartItem> cartItemList=cartDAO.listCartItemsByUsername(username);
+		for(CartItem cartItem : cartItemList)
+		{
+			Product product = productDAO.getProduct(cartItem.getProductId());
+			cartItem.setProductName(product.getProductName());
+			cartItem.setPrice(product.getPrice());
+			cartItem.setStock(product.getStock());
+		}
+		m.addAttribute("orderItems",cartItemList);
+		return cartItemList;
+	}
+	
 	@RequestMapping(value="/showOrder/{username}")
 	public String showOrder(@PathVariable("username") String username,@RequestParam Map<String, String> params, Model m)
 	{
@@ -67,14 +81,15 @@ public class OrderController
 			}
 		}
 		//get productName, price and stock of each item so that their respective fields can be filled
-		for(CartItem cartItem : cartItemList)
+		/*for(CartItem cartItem : cartItemList)
 		{
 			Product product = productDAO.getProduct(cartItem.getProductId());
 			cartItem.setProductName(product.getProductName());
 			cartItem.setPrice(product.getPrice());
 			cartItem.setStock(product.getStock());
-		}
-		m.addAttribute("orderItems",cartItemList);
+		}*/
+		//m.addAttribute("orderItems",cartItemList);
+		showCartItems(username, m);
 		m.addAttribute("orderDetail", new OrderDetail());
 		return "Order";
 	}
@@ -171,6 +186,9 @@ public class OrderController
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 			m.addAttribute("ExpMin",simpleDateFormat.format(calendar.getTime()));			
 			m.addAttribute("errorsList",errorsList);
+			/*List<CartItem> cartItemList=cartDAO.listCartItemsByUsername(session.getAttribute("username").toString());
+			m.addAttribute("orderItems",cartItemList);*/
+			showCartItems(session.getAttribute("username").toString(), m);
 			return "Order";
 		}
 		List<CartItem> cartItemList=cartDAO.listCartItemsByUsername(session.getAttribute("username").toString());
